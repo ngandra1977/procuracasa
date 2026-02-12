@@ -10,10 +10,36 @@ export default function ProcuracasaPage() {
     propertyType: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch("https://formspree.io/f/xeelaaew", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nome: formData.name,
+          email: formData.email,
+          localizacao: formData.location,
+          tipoImovel: formData.propertyType,
+        }),
+      });
+      
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        alert("Ocorreu um erro. Tente novamente.");
+      }
+    } catch {
+      alert("Ocorreu um erro. Tente novamente.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -117,9 +143,10 @@ export default function ProcuracasaPage() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-orange-500 text-white font-semibold py-4 rounded-lg hover:bg-orange-600"
+                    disabled={isSubmitting}
+                    className="w-full bg-orange-500 text-white font-semibold py-4 rounded-lg hover:bg-orange-600 disabled:opacity-50"
                   >
-                    Comecar a Procura Gratis
+                    {isSubmitting ? "A enviar..." : "Comecar a Procura Gratis"}
                   </button>
                 </form>
               )}
@@ -155,10 +182,16 @@ export default function ProcuracasaPage() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-8 px-4">
         <div className="max-w-6xl mx-auto text-center">
-          <p className="text-gray-400">© 2025 Procuracasa.pt. Todos os direitos reservados.</p>
-          <div className="flex justify-center gap-6 mt-4">
-            <a href="https://instagram.com/procuracasa.pt" className="hover:text-orange-500">Instagram</a>
-            <a href="https://tiktok.com/@procuracasa.pt" className="hover:text-orange-500">TikTok</a>
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center">
+              <span className="text-white font-bold text-xl">P</span>
+            </div>
+            <span className="text-xl font-bold">Procuracasa.pt</span>
+          </div>
+          <p className="text-gray-400 mb-4">© 2025 Procuracasa.pt. Todos os direitos reservados.</p>
+          <div className="flex justify-center gap-6">
+            <a href="https://www.instagram.com/procuracasa.pt" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500">Instagram</a>
+            <a href="https://www.tiktok.com/@procuracasa.pt" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500">TikTok</a>
           </div>
         </div>
       </footer>
