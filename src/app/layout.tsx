@@ -4,6 +4,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Procuracasa.pt - Encontramos a Sua Casa Ideal",
   description: "Diga-nos que casa procura. Nos fazemos o trabalho de encontrar imoveis que encaixam nas suas necessidades.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({
