@@ -203,10 +203,11 @@ export default function ProcuracasaPage() {
           </p>
           <div className="flex justify-center gap-6">
             <a href="https://www.instagram.com/procuracasa.pt" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500">Instagram</a>
-            <a href="https://www.tiktok.com/@procuracasa.pt" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500">TikTok</a>
+            <a href="https://www.tiktok.com/@procuracasa" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500">TikTok</a>
           </div>
         </div>
       </footer>
     </div>
   );
 }
+
