@@ -1,0 +1,28 @@
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Procuracasa.pt - Encontramos a Sua Casa Ideal",
+  description: "Diga-nos que casa procura. Nos fazemos o trabalho de encontrar imoveis que encaixam nas suas necessidades. Sem spam, sem pressao. Servico gratuito.",
+  keywords: ["casa", "imovel", "imobiliaria", "Portugal", "Lisboa", "Porto", "Algarve"],
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="pt-PT">
+      <body className={`${inter.variable} font-sans antialiased bg-white`}>
+        {children}
+      </body>
+    </html>
+  );
+}
