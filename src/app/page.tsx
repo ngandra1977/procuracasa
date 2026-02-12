@@ -7,8 +7,10 @@ export default function ProcuracasaPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     location: "",
     propertyType: "",
+    message: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,8 +28,10 @@ export default function ProcuracasaPage() {
         body: JSON.stringify({
           nome: formData.name,
           email: formData.email,
+          telefone: formData.phone || "Não indicado",
           localizacao: formData.location,
           tipoImovel: formData.propertyType,
+          mensagem: formData.message,
         }),
       });
       
@@ -94,7 +98,7 @@ export default function ProcuracasaPage() {
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <label className="block text-gray-700 mb-1">Nome</label>
+                    <label className="block text-gray-700 mb-1">Nome *</label>
                     <input
                       type="text"
                       required
@@ -105,7 +109,7 @@ export default function ProcuracasaPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-gray-700 mb-1">Email</label>
+                    <label className="block text-gray-700 mb-1">Email *</label>
                     <input
                       type="email"
                       required
@@ -116,24 +120,28 @@ export default function ProcuracasaPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-gray-700 mb-1">Localizacao</label>
-                    <select
-                      required
+                    <label className="block text-gray-700 mb-1">Telefone <span className="text-gray-400">(opcional)</span></label>
+                    <input
+                      type="tel"
                       className="w-full px-4 py-3 border rounded-lg"
-                      value={formData.location}
-                      onChange={(e) => setFormData({...formData, location: e.target.value})}
-                    >
-                      <option value="">Selecione</option>
-                      <option value="Lisboa">Lisboa</option>
-                      <option value="Porto">Porto</option>
-                      <option value="Algarve">Algarve</option>
-                      <option value="Outra">Outra</option>
-                    </select>
+                      placeholder="912 345 678"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    />
                   </div>
                   <div>
-                    <label className="block text-gray-700 mb-1">Tipo de Imovel</label>
+                    <label className="block text-gray-700 mb-1">Zona pretendida</label>
+                    <input
+                      type="text"
+                      className="w-full px-4 py-3 border rounded-lg"
+                      placeholder="Ex: Lisboa, Cascais, Porto..."
+                      value={formData.location}
+                      onChange={(e) => setFormData({...formData, location: e.target.value})}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 mb-1">Tipo de imovel</label>
                     <select
-                      required
                       className="w-full px-4 py-3 border rounded-lg"
                       value={formData.propertyType}
                       onChange={(e) => setFormData({...formData, propertyType: e.target.value})}
@@ -144,7 +152,19 @@ export default function ProcuracasaPage() {
                       <option value="T3">T3</option>
                       <option value="T4+">T4+</option>
                       <option value="Moradia">Moradia</option>
+                      <option value="Terreno">Terreno</option>
+                      <option value="Outro">Outro</option>
                     </select>
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 mb-1">O que procura?</label>
+                    <textarea
+                      rows={3}
+                      className="w-full px-4 py-3 border rounded-lg"
+                      placeholder="Descreva o imovel que procura, orcamento, caracteristicas importantes..."
+                      value={formData.message}
+                      onChange={(e) => setFormData({...formData, message: e.target.value})}
+                    />
                   </div>
                   <button
                     type="submit"
@@ -161,6 +181,57 @@ export default function ProcuracasaPage() {
                   </p>
                 </form>
               )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Lead Magnet */}
+      <section className="py-16 px-4 bg-gradient-to-r from-orange-500 to-orange-600">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+            <div className="grid md:grid-cols-2">
+              <div className="p-8 md:p-10">
+                <span className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-medium">PDF Gratuito</span>
+                <h2 className="text-2xl font-bold text-blue-900 mt-4 mb-4">
+                  Guia Completo para Comprar Casa em Portugal 2025
+                </h2>
+                <p className="text-gray-600 mb-6">
+                  Tudo o que precisa de saber sobre o processo de compra, financiamento, 
+                  impostos e dicas para evitar armadilhas comuns.
+                </p>
+                <ul className="space-y-2 text-gray-600 text-sm mb-6">
+                  <li className="flex items-center gap-2">
+                    <span className="text-green-500">✓</span> Passo-a-passo do processo de compra
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-green-500">✓</span> Documentos necessarios
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-green-500">✓</span> Impostos e custos explicados
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-green-500">✓</span> Erros comuns a evitar
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-green-500">✓</span> Checklist final incluida
+                  </li>
+                </ul>
+              </div>
+              <div className="bg-gray-50 p-8 md:p-10 flex flex-col justify-center items-center">
+                <div className="bg-white p-6 rounded-xl shadow-lg mb-4 text-center">
+                  <div className="text-5xl mb-2">📋</div>
+                  <p className="text-gray-500 text-sm">PDF com 15 paginas</p>
+                </div>
+                <a 
+                  href="/guia-comprar-casa-portugal.pdf" 
+                  target="_blank"
+                  className="w-full bg-orange-500 text-white font-semibold py-4 rounded-lg hover:bg-orange-600 text-center"
+                >
+                  Transferir Guia Gratuito
+                </a>
+                <p className="text-xs text-gray-500 text-center mt-3">Sem spam. Download imediato.</p>
+              </div>
             </div>
           </div>
         </div>
