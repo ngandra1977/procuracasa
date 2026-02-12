@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 export default function ProcuracasaPage() {
   const [formData, setFormData] = useState({
@@ -47,10 +48,14 @@ export default function ProcuracasaPage() {
       {/* Navigation */}
       <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-xl">P</span>
-            </div>
+          <div className="flex items-center gap-3">
+            <Image 
+              src="/logo.png" 
+              alt="Procuracasa.pt" 
+              width={40} 
+              height={40}
+              className="rounded-xl"
+            />
             <span className="text-xl font-bold text-blue-900">Procuracasa.pt</span>
           </div>
         </div>
@@ -182,13 +187,20 @@ export default function ProcuracasaPage() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-8 px-4">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-xl">P</span>
-            </div>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Image 
+              src="/logo.png" 
+              alt="Procuracasa.pt" 
+              width={40} 
+              height={40}
+              className="rounded-xl"
+            />
             <span className="text-xl font-bold">Procuracasa.pt</span>
           </div>
-          <p className="text-gray-400 mb-4">© 2025 Procuracasa.pt. Todos os direitos reservados.</p>
+          <p className="text-gray-400 mb-2">© 2025 Procuracasa.pt. Todos os direitos reservados.</p>
+          <p className="text-gray-400 mb-4">
+            <a href="mailto:procura.casa@hotmail.com" className="hover:text-orange-500">procura.casa@hotmail.com</a>
+          </p>
           <div className="flex justify-center gap-6">
             <a href="https://www.instagram.com/procuracasa.pt" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500">Instagram</a>
             <a href="https://www.tiktok.com/@procuracasa.pt" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500">TikTok</a>
