@@ -153,6 +153,12 @@ export default function ProcuracasaPage() {
                   >
                     {isSubmitting ? "A enviar..." : "Comecar a Procura Gratis"}
                   </button>
+                  <p className="text-xs text-gray-500 text-center mt-2">
+                    Ao submeter, concorda com a nossa{" "}
+                    <a href="/privacidade" className="text-orange-500 underline">Politica de Privacidade</a>{" "}
+                    e{" "}
+                    <a href="/termos" className="text-orange-500 underline">Termos e Condicoes</a>.
+                  </p>
                 </form>
               )}
             </div>
@@ -186,7 +192,7 @@ export default function ProcuracasaPage() {
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-8 px-4">
-        <div className="max-w-6xl mx-auto text-center">
+        <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-center gap-3 mb-4">
             <Image 
               src="/logo.png" 
@@ -197,17 +203,21 @@ export default function ProcuracasaPage() {
             />
             <span className="text-xl font-bold">Procuracasa.pt</span>
           </div>
-          <p className="text-gray-400 mb-2">© 2025 Procuracasa.pt. Todos os direitos reservados.</p>
-          <p className="text-gray-400 mb-4">
+          <p className="text-gray-400 text-center mb-2">© 2025 Procuracasa.pt. Todos os direitos reservados.</p>
+          <p className="text-gray-400 text-center mb-4">
             <a href="mailto:procura.casa@hotmail.com" className="hover:text-orange-500">procura.casa@hotmail.com</a>
           </p>
-          <div className="flex justify-center gap-6">
+          <div className="flex justify-center gap-6 mb-6">
             <a href="https://www.instagram.com/procuracasa.pt" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500">Instagram</a>
             <a href="https://www.tiktok.com/@procuracasa" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500">TikTok</a>
+          </div>
+          <div className="flex justify-center gap-6 text-sm text-gray-500">
+            <a href="/privacidade" className="hover:text-orange-500">Politica de Privacidade</a>
+            <span>|</span>
+            <a href="/termos" className="hover:text-orange-500">Termos e Condicoes</a>
           </div>
         </div>
       </footer>
     </div>
   );
 }
-
