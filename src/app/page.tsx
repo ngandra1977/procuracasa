@@ -65,6 +65,7 @@ export default function ProcuracasaPage() {
           <div className="flex justify-between items-center h-16">
             <a href="/" className="flex items-center gap-3">
               <img src="/logo.png" alt="Procuracasa.pt" className="h-10 w-auto" />
+              <span className="text-xl font-bold text-[#1F4E79]">Procuracasa.pt</span>
             </a>
             <div className="hidden md:flex items-center gap-8">
               <a href="#como-funciona" className="text-gray-600 hover:text-[#FF9500] transition-colors">Como Funciona</a>
@@ -466,7 +467,8 @@ export default function ProcuracasaPage() {
           <div className="grid md:grid-cols-4 gap-8">
             <div className="md:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <img src="/logo.png" alt="Procuracasa.pt" className="h-10 w-auto" style={{filter: 'brightness(0) invert(1)'}} />
+                <img src="/logo.png" alt="Procuracasa.pt" className="h-10 w-auto" />
+                <span className="text-xl font-bold">Procuracasa.pt</span>
               </div>
               <p className="text-gray-400 mb-4 max-w-sm">
                 Encontramos a sua casa ideal sem perder tempo. Serviço gratuito e personalizado.
