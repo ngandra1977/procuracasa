@@ -42,7 +42,7 @@ export default function TermosPage() {
           <p>Estes Termos são regidos pela lei portuguesa. Qualquer litígio será submetido aos tribunais competentes em Portugal.</p>
 
           <h2 className="text-xl font-bold text-blue-900 mt-8">9. Contacto</h2>
-          <p>Para questões sobre estes Termos: <a href="mailto:procura.casa@hotmail.com" className="text-orange-500">procura.casa@hotmail.com</a></p>
+          <p>Para questões sobre estes Termos: <a href="mailto:procuracasa@procuracasa.pt" className="text-orange-500">procuracasa@procuracasa.pt</a></p>
         </div>
       </div>
     </div>
