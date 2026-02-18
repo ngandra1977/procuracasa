@@ -499,14 +499,14 @@ export default function ProcuracasaPage() {
                 <li><a href="#formulario" className="hover:text-[#FF9500] transition-colors">Contacto</a></li>
               </ul>
             </div>
-            <div>
+          <div>
               <h3 className="font-semibold mb-4">Legal</h3>
               <ul className="space-y-2 text-gray-400">
                 <li><a href="/privacidade" className="hover:text-[#FF9500] transition-colors">Política de Privacidade</a></li>
                 <li><a href="/termos" className="hover:text-[#FF9500] transition-colors">Termos e Condições</a></li>
               </ul>
               <h3 className="font-semibold mb-4 mt-6">Contacto</h3>
-              <p className="text-gray-400">procuracasa@procuracasa.pt</p>
+              <a href="mailto:procuracasa@procuracasa.pt" className="text-gray-400 hover:text-[#FF9500] transition-colors">procuracasa@procuracasa.pt</a>
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
@@ -517,4 +517,5 @@ export default function ProcuracasaPage() {
     </div>
   );
 }
+
 
