@@ -66,7 +66,7 @@ export default function PrivacidadePage() {
           </ul>
           <p>
             Para exercer qualquer um destes direitos, contacte-nos através do email: 
-            <a href="mailto:procura.casa@hotmail.com" className="text-orange-500"> procura.casa@hotmail.com</a>
+            <a href="mailto:procuracasa@procuracasa.pt" className="text-orange-500"> procuracasa@procuracasa.pt</a>
           </p>
 
           <h2 className="text-xl font-bold text-blue-900 mt-8">8. Segurança</h2>
@@ -87,7 +87,7 @@ export default function PrivacidadePage() {
             seus dados pessoais, contacte-nos:
           </p>
           <p>
-            Email: <a href="mailto:procura.casa@hotmail.com" className="text-orange-500">procura.casa@hotmail.com</a>
+            Email: <a href="mailto:procuracasa@procuracasa.pt" className="text-orange-500">procuracasa@procuracasa.pt</a>
           </p>
         </div>
       </div>
