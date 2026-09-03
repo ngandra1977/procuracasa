@@ -19,7 +19,6 @@ export default function ProcuracasaPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    // Mantendo a contagem simulada para prova social
     setLeadCount(47);
   }, []);
 
@@ -80,6 +79,7 @@ export default function ProcuracasaPage() {
             <div className="hidden md:flex items-center gap-8">
               <a href="#como-funciona" className="text-gray-600 hover:text-[#FF9500] transition-colors">Como Funciona</a>
               <a href="#beneficios" className="text-gray-600 hover:text-[#FF9500] transition-colors">Benefícios</a>
+              <a href="#condicoes" className="text-gray-600 hover:text-[#FF9500] transition-colors">Condições</a>
               <a href="#formulario" className="bg-[#FF9500] hover:bg-orange-600 text-white font-medium px-6 py-2 rounded-lg transition-colors">
                 Recomendar
               </a>
@@ -100,6 +100,7 @@ export default function ProcuracasaPage() {
             <div className="flex flex-col gap-4 px-4">
               <a href="#como-funciona" className="text-gray-600" onClick={() => setMobileMenuOpen(false)}>Como Funciona</a>
               <a href="#beneficios" className="text-gray-600" onClick={() => setMobileMenuOpen(false)}>Benefícios</a>
+              <a href="#condicoes" className="text-gray-600" onClick={() => setMobileMenuOpen(false)}>Condições</a>
               <a href="#formulario" className="bg-[#FF9500] text-white text-center py-2 rounded-lg" onClick={() => setMobileMenuOpen(false)}>Recomendar</a>
             </div>
           </div>
@@ -119,12 +120,12 @@ export default function ProcuracasaPage() {
                 Rede de Recomendações
               </span>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1F4E79] leading-tight mb-6">
-                Conhece alguém que queira vender imóvel no{" "}
+                Conhece alguém que esteja a pensar vender um imóvel no{" "}
                 <span className="text-[#FF9500]">Grande Porto?</span>
               </h1>
               <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-xl mx-auto lg:mx-0">
                 Recomende-nos um familiar, amigo ou colega. Nós tratamos da avaliação e da venda.{" "}
-                <span className="font-semibold text-[#1F4E79]">Seja recompensado por isso.</span>
+                <span className="font-semibold text-[#1F4E79]">Receba 3% da comissão se resultar em venda.</span>
               </p>
               <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-8">
                 <div className="flex items-center gap-2 text-gray-600">
@@ -143,7 +144,7 @@ export default function ProcuracasaPage() {
                   <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  <span>Recompensa Garantida</span>
+                  <span>3% de Recompensa em Caso de Venda</span>
                 </div>
               </div>
               <div className="inline-flex items-center gap-2 bg-white rounded-full px-4 py-2 shadow-md">
@@ -388,8 +389,8 @@ export default function ProcuracasaPage() {
             {[
               { title: "Apoio Local Especializado", desc: "Atuamos exclusivamente no Grande Porto, conhecendo o mercado como ninguém." },
               { title: "Atendimento Profissional", desc: "A sua recomendação é tratada com o máximo rigor e discrição pela nossa equipa." },
-              { title: "Recompensa Justa", desc: "Receba uma recompensa financeira por cada indicação que resulte num negócio concretizado." },
               { title: "Ajuda Quem Precisa", desc: "Muitas pessoas querem vender mas não dão o passo. Nós ajudamos nesse processo." },
+              { title: "Recompensa de 3%", desc: "Receba 3% da comissão de mediação, em caso de venda concretizada." },
             ].map((benefit, i) => (
               <div key={i} className="bg-gradient-to-br from-orange-50 to-white rounded-2xl p-6 border border-orange-100 hover:shadow-lg transition-shadow">
                 <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
@@ -402,8 +403,86 @@ export default function ProcuracasaPage() {
               </div>
             ))}
           </div>
+
+          {/* Reward Box */}
+          <div className="mt-12 bg-gradient-to-r from-orange-50 to-white rounded-2xl p-8 border-l-4 border-[#FF9500] shadow-md">
+            <h3 className="text-2xl font-bold text-[#1F4E79] mb-4 flex items-center gap-3">
+              <span className="text-3xl">💰</span> Seja recompensado por uma recomendação bem-sucedida
+            </h3>
+            <p className="text-gray-700 mb-4">
+              Se a sua recomendação resultar numa venda concretizada através da nossa consultora, receberá uma recompensa correspondente a <strong>3% do valor da comissão de mediação efetivamente recebida</strong>.
+            </p>
+            <div className="bg-white rounded-xl p-4 border border-gray-200 inline-block">
+              <p className="text-sm text-gray-500 mb-1">Exemplo:</p>
+              <p className="text-gray-700">
+                Um imóvel vendido por <strong>300.000 €</strong>, com uma comissão de <strong>15.000 €</strong>, poderá gerar uma recompensa de <strong className="text-[#FF9500]">450 €</strong>.
+              </p>
+            </div>
+            <p className="text-xs text-gray-500 mt-4">
+              A recompensa só é atribuída após a conclusão da venda e o recebimento da respetiva comissão. <a href="#condicoes" className="text-[#FF9500] hover:underline font-medium">Ver condições do programa.</a>
+            </p>
+          </div>
+
         </div>
       </section>
+
+      {/* Conditions Section */}
+      <section id="condicoes" className="py-16 lg:py-24 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="inline-flex bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm mb-4">Transparência Total</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#1F4E79] mb-4">Condições do Programa de Recomendações</h2>
+            <p className="text-gray-600">Regras claras para que ambas as partes saibam o que esperar.</p>
+          </div>
+
+          <div className="space-y-8">
+            {/* Item 1 */}
+            <div className="bg-white rounded-2xl p-6 shadow-md">
+              <h3 className="text-xl font-bold text-[#1F4E79] mb-3">1. O que é uma recomendação válida?</h3>
+              <p className="text-gray-600 mb-2">A pessoa recomendada deve:</p>
+              <ul className="list-disc list-inside text-gray-600 space-y-1">
+                <li>Ter conhecimento da recomendação;</li>
+                <li>Autorizar o contacto;</li>
+                <li>Estar relacionada com um imóvel localizado na área de atuação indicada (Grande Porto);</li>
+                <li>Não estar já identificada/contactada pela consultora relativamente ao mesmo imóvel.</li>
+              </ul>
+            </div>
+
+            {/* Item 2 */}
+            <div className="bg-white rounded-2xl p-6 shadow-md">
+              <h3 className="text-xl font-bold text-[#1F4E79] mb-3">2. Quando existe direito à recompensa?</h3>
+              <p className="text-gray-600 mb-2">A recompensa só é devida quando ocorrerem todos estes eventos:</p>
+              <ul className="list-disc list-inside text-gray-600 space-y-1">
+                <li>A recomendação é aceite como válida;</li>
+                <li>O imóvel é angariado pela consultora;</li>
+                <li>O imóvel é vendido;</li>
+                <li>A comissão de mediação é efetivamente recebida.</li>
+              </ul>
+            </div>
+
+            {/* Item 3 & 4 */}
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-white rounded-2xl p-6 shadow-md">
+                <h3 className="text-xl font-bold text-[#1F4E79] mb-3">3. Qual é o valor?</h3>
+                <p className="text-gray-600">3% da comissão de mediação efetivamente recebida, excluindo IVA.</p>
+              </div>
+              <div className="bg-white rounded-2xl p-6 shadow-md">
+                <h3 className="text-xl font-bold text-[#1F4E79] mb-3">4. Quando é paga?</h3>
+                <p className="text-gray-600">Até 30 dias após o recebimento integral da comissão pela agência.</p>
+              </div>
+            </div>
+
+            {/* Item 5 */}
+            <div className="bg-white rounded-2xl p-6 shadow-md border-l-4 border-red-400">
+              <h3 className="text-xl font-bold text-[#1F4E79] mb-3">5. Uma pessoa pode recomendar-se a si própria?</h3>
+              <p className="text-gray-600">
+                Não. Não são elegíveis autorrecomendações. A recompensa destina-se exclusivamente a recomendações espontâneas de terceiros.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       {/* Social Proof / Testimonials */}
       <section className="py-16 lg:py-24 bg-gradient-to-br from-[#1F4E79] to-blue-900 text-white">
@@ -455,52 +534,8 @@ export default function ProcuracasaPage() {
               <p className="text-blue-200">Discrição</p>
             </div>
             <div>
-              <p className="text-4xl font-bold text-[#FF9500]">€€€</p>
-              <p className="text-blue-200">Recompensas</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Lead Magnet */}
-      <section className="py-16 lg:py-20 bg-gradient-to-r from-orange-500 to-orange-600">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-            <div className="grid md:grid-cols-2">
-              <div className="p-8 md:p-10">
-                <span className="inline-flex bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm mb-4">PDF Gratuito</span>
-                <h2 className="text-2xl sm:text-3xl font-bold text-[#1F4E79] mb-4">
-                  Guia Completo para Comprar Casa em Portugal 2025
-                </h2>
-                <p className="text-gray-600 mb-6">
-                  Partilhe este guia com quem está a pensar comprar casa. Tudo o que precisa de saber sobre o processo.
-                </p>
-                <ul className="space-y-3">
-                  {["Passo-a-passo do processo de compra", "Simulador de custos e impostos", "Checklist de documentos necessários", "Dicas de negociação"].map((item, i) => (
-                    <li key={i} className="flex items-center gap-2 text-gray-600">
-                      <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="bg-gray-50 p-8 md:p-10 flex flex-col justify-center">
-                <a
-                  href="/guia-comprar-casa-portugal.pdf"
-                  download
-                  className="w-full bg-[#FF9500] hover:bg-orange-600 text-white font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
-                  Download Direto (PDF)
-                </a>
-                <p className="text-xs text-gray-500 text-center mt-4">
-                  Sem spam. Gratuito.
-                </p>
-              </div>
+              <p className="text-4xl font-bold text-[#FF9500]">3%</p>
+              <p className="text-blue-200">Recompensa</p>
             </div>
           </div>
         </div>
@@ -562,6 +597,7 @@ export default function ProcuracasaPage() {
               <ul className="space-y-2 text-gray-400">
                 <li><a href="#como-funciona" className="hover:text-[#FF9500] transition-colors">Como Funciona</a></li>
                 <li><a href="#beneficios" className="hover:text-[#FF9500] transition-colors">Benefícios</a></li>
+                <li><a href="#condicoes" className="hover:text-[#FF9500] transition-colors">Condições</a></li>
                 <li><a href="#formulario" className="hover:text-[#FF9500] transition-colors">Recomendar</a></li>
               </ul>
             </div>
@@ -583,5 +619,3 @@ export default function ProcuracasaPage() {
     </div>
   );
 }
-
-
