@@ -413,14 +413,17 @@ export default function ProcuracasaPage() {
               Se a sua recomendação resultar numa venda concretizada através da nossa consultora, receberá uma recompensa correspondente a <strong>3% do valor da comissão de mediação efetivamente recebida</strong>.
             </p>
             <div className="bg-white rounded-xl p-4 border border-gray-200 inline-block">
-              <p className="text-sm text-gray-500 mb-1">Exemplo (comissão integral):</p>
-              <p className="text-gray-700">
-                Um imóvel vendido por <strong>300.000 €</strong>, com uma comissão total de <strong>15.000 €</strong> recebida pela nossa agência, gera uma recompensa de <strong className="text-[#FF9500]">450 €</strong>.
-              </p>
-            </div>
-            <p className="text-xs text-gray-500 mt-4">
-              A recompensa só é atribuída após a conclusão da venda e o recebimento da respetiva comissão. <a href="#condicoes" className="text-[#FF9500] hover:underline font-medium">Ver condições do programa.</a>
-            </p>
+  <p className="text-sm text-gray-500 mb-1">Exemplo meramente ilustrativo:</p>
+  <p className="text-gray-700 mb-2">
+    Num imóvel vendido por <strong>300.000 €</strong>, com uma comissão de mediação de <strong>15.000 €</strong> (5%), a recompensa será de <strong className="text-[#FF9500]">450 €</strong>.
+  </p>
+  <p className="text-xs text-gray-500">
+    *O valor da comissão varia consoante o acordo comercial estabelecido com cada proprietário. A recompensa é sempre calculada sobre o valor líquido efetivamente recebido pela agência.
+  </p>
+</div>
+<p className="text-xs text-gray-500 mt-4">
+  A recompensa só é atribuída após a conclusão da venda e o recebimento da respetiva comissão. <a href="#condicoes" className="text-[#FF9500] hover:underline font-medium">Ver condições do programa.</a>
+</p>
           </div>
 
         </div>
@@ -464,7 +467,11 @@ export default function ProcuracasaPage() {
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-white rounded-2xl p-6 shadow-md">
                 <h3 className="text-xl font-bold text-[#1F4E79] mb-3">3. Qual é o valor?</h3>
-<p className="text-gray-600">3% da comissão de mediação líquida efetivamente recebida pela nossa agência, excluindo IVA. Em casos de co-promoção (partilha de comissão com outra agência), a recompensa incide apenas sobre a parcela recebida pela Procuracasa.</p>
+<p className="text-gray-600">
+  3% da comissão de mediação líquida efetivamente recebida pela nossa agência, excluindo IVA. 
+  O valor da comissão varia de negócio para negócio, dependendo do acordo comercial estabelecido com o proprietário. A recompensa final será sempre calculada com base no montante exato recebido pela Procuracasa. 
+  Em casos de co-promoção (partilha de comissão com outra agência), a recompensa incide apenas sobre a parcela recebida pela Procuracasa.
+</p>
               </div>
               <div className="bg-white rounded-2xl p-6 shadow-md">
                 <h3 className="text-xl font-bold text-[#1F4E79] mb-3">4. Quando é paga?</h3>
