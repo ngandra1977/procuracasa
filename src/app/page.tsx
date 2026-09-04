@@ -389,7 +389,7 @@ export default function ProcuracasaPage() {
             {[
               { title: "Apoio Local Especializado", desc: "Atuamos exclusivamente no Grande Porto, conhecendo o mercado como ninguém." },
               { title: "Atendimento Profissional", desc: "A sua recomendação é tratada com o máximo rigor e discrição pela nossa equipa." },
-              { title: "Ajuda Quem Precisa", desc: "Muitas pessoas querem vender mas não dão o passo. Nós ajudamos nesse processo." },
+              { title: "Ajude alguém que conhece", desc: "Conhece alguém que está a pensar vender? Uma simples recomendação pode ajudá-lo a encontrar o acompanhamento profissional certo para tomar essa decisão." },
               { title: "Recompensa de 3%", desc: "Receba 3% da comissão de mediação, em caso de venda concretizada." },
             ].map((benefit, i) => (
               <div key={i} className="bg-gradient-to-br from-orange-50 to-white rounded-2xl p-6 border border-orange-100 hover:shadow-lg transition-shadow">
@@ -483,7 +483,7 @@ export default function ProcuracasaPage() {
             <div className="bg-white rounded-2xl p-6 shadow-md border-l-4 border-red-400">
               <h3 className="text-xl font-bold text-[#1F4E79] mb-3">5. Uma pessoa pode recomendar-se a si própria?</h3>
               <p className="text-gray-600">
-                Não. Não são elegíveis autorrecomendações. A recompensa destina-se exclusivamente a recomendações espontâneas de terceiros.
+                Não. Não são elegíveis autorrecomendações. A recompensa destina-se exclusivamente a recomendações de terceiros.
               </p>
             </div>
           </div>
