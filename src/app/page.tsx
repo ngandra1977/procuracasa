@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 
 export default function ProcuracasaPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -22,7 +22,7 @@ export default function ProcuracasaPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
     setIsSubmitting(true);
@@ -52,6 +52,7 @@ export default function ProcuracasaPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <a href="/" className="flex items-center gap-3">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/logo.png" alt="Procuracasa.pt" className="h-10 w-auto" />
               <span className="text-xl font-bold text-[#1F4E79]">Procuracasa.pt</span>
             </a>
@@ -184,7 +185,7 @@ export default function ProcuracasaPage() {
         </div>
       </section>
 
-      {/* Featured Properties (Placeholders) */}
+      {/* Featured Properties */}
       <section id="properties" className="py-16 lg:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
@@ -193,6 +194,7 @@ export default function ProcuracasaPage() {
             </div>
             <div className="grid md:grid-cols-3 gap-8">
                 <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/property-1.jpg" alt="Property 1" className="w-full h-56 object-cover" />
                     <div className="p-6">
                         <h3 className="text-xl font-bold text-[#1F4E79] mb-1">T2 Apartment</h3>
@@ -201,6 +203,7 @@ export default function ProcuracasaPage() {
                     </div>
                 </div>
                 <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/property-2.jpg" alt="Property 2" className="w-full h-56 object-cover" />
                     <div className="p-6">
                         <h3 className="text-xl font-bold text-[#1F4E79] mb-1">T3 House</h3>
@@ -209,6 +212,7 @@ export default function ProcuracasaPage() {
                     </div>
                 </div>
                 <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/property-3.jpg" alt="Property 3" className="w-full h-56 object-cover" />
                     <div className="p-6">
                         <h3 className="text-xl font-bold text-[#1F4E79] mb-1">T1 Studio</h3>
@@ -273,6 +277,7 @@ export default function ProcuracasaPage() {
       <footer className="bg-gray-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/logo.png" alt="Procuracasa.pt" className="h-10 w-auto" />
                 <span className="text-xl font-bold">Procuracasa.pt</span>
             </div>
@@ -283,7 +288,6 @@ export default function ProcuracasaPage() {
                 <a href="#buying" className="hover:text-[#FF9500]">Buying</a>
                 <a href="#renting" className="hover:text-[#FF9500]">Renting</a>
                 <a href="#contact" className="hover:text-[#FF9500]">Contact</a>
-                {/* Link temporário para versão PT - podes apontar para uma página PT depois */}
                 <a href="/" className="hover:text-[#FF9500]">Português</a>
             </div>
             <p className="text-gray-600 text-sm mt-8">© {new Date().getFullYear()} Procuracasa.pt. All rights reserved.</p>
