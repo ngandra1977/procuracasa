@@ -58,6 +58,7 @@ export default function ProcuracasaPage() {
             <div className="hidden md:flex items-center gap-8">
               <a href="#buying" className="text-gray-600 hover:text-[#FF9500] transition-colors">Buying</a>
               <a href="#renting" className="text-gray-600 hover:text-[#FF9500] transition-colors">Renting</a>
+              <a href="#properties" className="text-gray-600 hover:text-[#FF9500] transition-colors">Properties</a>
               <a href="#contact" className="bg-[#FF9500] hover:bg-orange-600 text-white font-medium px-6 py-2 rounded-lg transition-colors">
                 Contact Us
               </a>
@@ -78,6 +79,7 @@ export default function ProcuracasaPage() {
             <div className="flex flex-col gap-4 px-4">
               <a href="#buying" className="text-gray-600" onClick={() => setMobileMenuOpen(false)}>Buying</a>
               <a href="#renting" className="text-gray-600" onClick={() => setMobileMenuOpen(false)}>Renting</a>
+              <a href="#properties" className="text-gray-600" onClick={() => setMobileMenuOpen(false)}>Properties</a>
               <a href="#contact" className="bg-[#FF9500] text-white text-center py-2 rounded-lg" onClick={() => setMobileMenuOpen(false)}>Contact Us</a>
             </div>
           </div>
@@ -118,14 +120,32 @@ export default function ProcuracasaPage() {
       <section id="buying" className="py-16 lg:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-gray-100">
-                <h2 className="text-3xl sm:text-4xl font-bold text-[#1F4E79] mb-6">Thinking about buying in Porto?</h2>
-                <p className="text-gray-600 text-lg mb-8 max-w-3xl">
-                    The process is different from what you&apos;re used to — NIF, bank account, promissory contract, notary deed. We guide you through each step and help you find properties that match what you&apos;re actually looking for, not just what&apos;s listed online.
+                <h2 className="text-3xl sm:text-4xl font-bold text-[#1F4E79] mb-6 text-center">Thinking about buying in Porto?</h2>
+                <p className="text-gray-600 text-lg mb-8 max-w-3xl mx-auto text-center">
+                    The process is different from what you&apos;re used to. We guide you through each step and help you find properties that match what you&apos;re actually looking for.
                 </p>
-                <a href="#contact" className="inline-flex items-center gap-2 text-[#FF9500] font-semibold text-lg hover:underline">
-                    Learn how buying works
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                </a>
+                
+                <div className="grid md:grid-cols-4 gap-8 mt-12">
+                    {[
+                        { num: 1, title: "NIF & Bank Account", desc: "We help you set up your Portuguese tax number and local bank account." },
+                        { num: 2, title: "Property Search", desc: "We find on-market and off-market properties that match your criteria." },
+                        { num: 3, title: "Promissory Contract", desc: "We negotiate and secure the deal with a CPCV and deposit." },
+                        { num: 4, title: "Notary Deed", desc: "Final ownership transfer and keys handover at the notary." },
+                    ].map((step) => (
+                        <div key={step.num} className="text-center">
+                            <div className="w-12 h-12 bg-[#FF9500] rounded-full flex items-center justify-center text-white font-bold shadow-lg mx-auto mb-4">{step.num}</div>
+                            <h3 className="font-bold text-[#1F4E79] mb-2">{step.title}</h3>
+                            <p className="text-sm text-gray-600">{step.desc}</p>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="text-center mt-12">
+                    <a href="#contact" className="inline-flex items-center gap-2 bg-[#FF9500] hover:bg-orange-600 text-white font-semibold px-8 py-4 rounded-lg transition-colors">
+                        Contact us to start buying
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                    </a>
+                </div>
             </div>
         </div>
       </section>
@@ -134,14 +154,68 @@ export default function ProcuracasaPage() {
       <section id="renting" className="py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-gray-50 rounded-2xl p-8 md:p-12 shadow-lg border border-gray-100">
-                <h2 className="text-3xl sm:text-4xl font-bold text-[#1F4E79] mb-6">Looking to rent in Porto?</h2>
-                <p className="text-gray-600 text-lg mb-8 max-w-3xl">
-                    Whether you&apos;re relocating, working remotely, or waiting on a visa, we help you find furnished or unfurnished apartments and handle the paperwork landlords expect from foreign tenants.
+                <h2 className="text-3xl sm:text-4xl font-bold text-[#1F4E79] mb-6 text-center">Looking to rent in Porto?</h2>
+                <p className="text-gray-600 text-lg mb-8 max-w-3xl mx-auto text-center">
+                    Whether you&apos;re relocating, working remotely, or waiting on a visa, we help you find apartments and handle the paperwork landlords expect from foreign tenants.
                 </p>
-                <a href="#contact" className="inline-flex items-center gap-2 text-[#FF9500] font-semibold text-lg hover:underline">
-                    Learn how renting works
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                </a>
+                
+                <div className="grid md:grid-cols-4 gap-8 mt-12">
+                    {[
+                        { num: 1, title: "Define Needs", desc: "Budget, location, furnished vs. unfurnished, and timeline." },
+                        { num: 2, title: "Property Viewings", desc: "We arrange tours in-person or via video call for remote clients." },
+                        { num: 3, title: "Landlord Requirements", desc: "We help prepare your passport, visa, and proof of income." },
+                        { num: 4, title: "Lease Signing", desc: "Sign the contract, pay the deposit and first rent, get keys." },
+                    ].map((step) => (
+                        <div key={step.num} className="text-center">
+                            <div className="w-12 h-12 bg-[#1F4E79] rounded-full flex items-center justify-center text-white font-bold shadow-lg mx-auto mb-4">{step.num}</div>
+                            <h3 className="font-bold text-[#1F4E79] mb-2">{step.title}</h3>
+                            <p className="text-sm text-gray-600">{step.desc}</p>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="text-center mt-12">
+                    <a href="#contact" className="inline-flex items-center gap-2 bg-[#1F4E79] hover:bg-blue-800 text-white font-semibold px-8 py-4 rounded-lg transition-colors">
+                        Contact us to start renting
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      {/* Featured Properties (Placeholders) */}
+      <section id="properties" className="py-16 lg:py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+                <h2 className="text-3xl sm:text-4xl font-bold text-[#1F4E79] mb-4">Featured Properties</h2>
+                <p className="text-gray-600">A selection of available homes in the Greater Porto area.</p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-8">
+                <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+                    <img src="/property-1.jpg" alt="Property 1" className="w-full h-56 object-cover" />
+                    <div className="p-6">
+                        <h3 className="text-xl font-bold text-[#1F4E79] mb-1">T2 Apartment</h3>
+                        <p className="text-gray-500 mb-4">Foz do Douro, Porto</p>
+                        <p className="text-2xl font-bold text-[#FF9500]">€450,000</p>
+                    </div>
+                </div>
+                <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+                    <img src="/property-2.jpg" alt="Property 2" className="w-full h-56 object-cover" />
+                    <div className="p-6">
+                        <h3 className="text-xl font-bold text-[#1F4E79] mb-1">T3 House</h3>
+                        <p className="text-gray-500 mb-4">Matosinhos</p>
+                        <p className="text-lg font-bold text-green-600">€2,500/month</p>
+                    </div>
+                </div>
+                <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+                    <img src="/property-3.jpg" alt="Property 3" className="w-full h-56 object-cover" />
+                    <div className="p-6">
+                        <h3 className="text-xl font-bold text-[#1F4E79] mb-1">T1 Studio</h3>
+                        <p className="text-gray-500 mb-4">Vila do Conde</p>
+                        <p className="text-2xl font-bold text-[#FF9500]">€180,000</p>
+                    </div>
+                </div>
             </div>
         </div>
       </section>
@@ -205,7 +279,14 @@ export default function ProcuracasaPage() {
             <p className="text-gray-400 mb-4 max-w-sm mx-auto">
                 Your trusted local guide to buying and renting in Porto.
             </p>
-            <p className="text-gray-500 text-sm">© {new Date().getFullYear()} Procuracasa.pt. All rights reserved.</p>
+            <div className="flex justify-center gap-6 text-sm text-gray-400">
+                <a href="#buying" className="hover:text-[#FF9500]">Buying</a>
+                <a href="#renting" className="hover:text-[#FF9500]">Renting</a>
+                <a href="#contact" className="hover:text-[#FF9500]">Contact</a>
+                {/* Link temporário para versão PT - podes apontar para uma página PT depois */}
+                <a href="/" className="hover:text-[#FF9500]">Português</a>
+            </div>
+            <p className="text-gray-600 text-sm mt-8">© {new Date().getFullYear()} Procuracasa.pt. All rights reserved.</p>
         </div>
       </footer>
     </div>
