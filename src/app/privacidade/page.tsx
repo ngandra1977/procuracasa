@@ -41,7 +41,11 @@ export default function Privacy() {
         <p>
           Pode pedir acesso, correção ou eliminação dos dados que enviou e
           retirar o consentimento, sem afetar o tratamento anterior à retirada.
-          Pode contactar a equipa através das páginas oficiais{" "}
+          Pode contactar-nos por email em{" "}
+          <a href="mailto:procuracasa@procuracasa.pt">
+            procuracasa@procuracasa.pt
+          </a>{" "}
+          ou através das páginas oficiais{" "}
           <a href="https://www.instagram.com/procuracasa.pt/">
             Instagram Procuracasa
           </a>{" "}
@@ -53,10 +57,9 @@ export default function Privacy() {
         </p>
         <h2>Informação a completar antes do lançamento</h2>
         <p>
-          A identificação completa do responsável pelo tratamento, o contacto
-          específico de privacidade, o prazo de conservação e as condições
-          aplicáveis aos prestadores devem ser confirmados pela equipa antes da
-          publicação desta versão.
+          A identificação completa do responsável pelo tratamento, o prazo de
+          conservação e as condições aplicáveis aos prestadores devem ser
+          confirmados pela equipa antes da publicação desta versão.
         </p>
       </main>
     </>

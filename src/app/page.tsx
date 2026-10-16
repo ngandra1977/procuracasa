@@ -1,6 +1,7 @@
 import Brand from "@/components/Brand";
 import Catalogue from "@/components/Catalogue";
 import Contact from "@/components/Contact";
+import DirectContacts from "@/components/DirectContacts";
 import { getProperties } from "@/lib/server";
 import { locations, Property } from "@/lib/properties";
 export const dynamic = "force-dynamic";
@@ -186,6 +187,7 @@ export default async function Home() {
               preferências connosco. Podemos procurar opções também através de
               imobiliárias parceiras.
             </p>
+            <DirectContacts />
             <div className="contact-socials">
               <a
                 href="https://www.instagram.com/procuracasa.pt/"
@@ -210,6 +212,10 @@ export default async function Home() {
         <Brand />
         <p>O seu lugar. Entre a cidade e o mar.</p>
         <div>
+          <a href="tel:+351917361697">917 361 697</a>
+          <a href="mailto:procuracasa@procuracasa.pt">
+            procuracasa@procuracasa.pt
+          </a>
           <a href="/privacidade">Privacidade</a>
           <a href="/termos">Termos</a>
           <a href="/gestao">Área de gestão</a>

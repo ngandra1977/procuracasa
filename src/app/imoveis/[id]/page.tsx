@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Brand from "@/components/Brand";
 import Contact from "@/components/Contact";
+import DirectContacts from "@/components/DirectContacts";
 import { getProperties } from "@/lib/server";
 import { price, isResidential } from "@/lib/properties";
 export const dynamic = "force-dynamic";
@@ -65,7 +66,13 @@ export default async function PropertyPage({
                 ? "Vamos marcar uma visita?"
                 : "Procura algo semelhante?"}
             </h2>
-            <p>Envie-nos o seu pedido.</p>
+            <DirectContacts
+              message={`Olá! Gostaria de saber mais sobre ${p.title} (referência ${p.reference || p.id}). https://www.procuracasa.pt/imoveis/${p.id}`}
+              subject={`Informações sobre ${p.title} — referência ${p.reference || p.id}`}
+            />
+            <p className="contact-form-intro">
+              Ou envie-nos o seu pedido pelo formulário.
+            </p>
             <Contact
               initialPropertyType={p.property_type}
               initial={`Gostaria de saber mais sobre ${p.title} (referência ${p.reference || p.id}).`}

@@ -844,3 +844,46 @@ select {
 .other-zone {
   margin-top: 25px;
 }
+
+.direct-contacts {
+  margin-top: 30px;
+  font-style: normal;
+}
+.direct-contacts > p {
+  font-size: 12px;
+  margin-bottom: 14px;
+}
+.direct-contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+.direct-phone {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+}
+.direct-phone span {
+  font-size: 10px;
+  color: var(--muted);
+}
+.direct-phone strong {
+  font-weight: 400;
+  font-size: 18px;
+}
+.direct-email {
+  display: inline-block;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+  margin-top: 18px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 4px;
+}
+.contact-form-intro {
+  margin: 25px 0 16px;
+  font-size: 12px;
+}
+.footer > div {
+  flex-wrap: wrap;
+}
