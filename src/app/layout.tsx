@@ -1,24 +1,22 @@
 import type { Metadata } from "next";
 import { ReactNode } from "react";
 import "./globals.css";
-
 export const metadata: Metadata = {
-  title: "Buy or Rent Property in Porto, Portugal | Procuracasa",
-  description: "Local, licensed real estate guidance for foreigners buying or renting in Porto and the Greater Porto area. We help you navigate the Portuguese property process.",
-  icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+  title: "Procuracasa | Carla Morais — Imóveis no Grande Porto",
+  description:
+    "Imóveis em Vila do Conde, Matosinhos, Leça da Palmeira e Porto. Conheça as opções e partilhe a sua procura com Carla Morais.",
+  icons: { icon: "/brand.svg" },
+  openGraph: {
+    title: "Procuracasa · Carla Morais",
+    description: "O seu lugar. Entre a cidade e o mar.",
+    locale: "pt_PT",
+    type: "website",
   },
 };
-
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body className="bg-white">{children}</body>
+    <html lang="pt-PT">
+      <body>{children}</body>
     </html>
   );
 }

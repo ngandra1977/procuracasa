@@ -1,50 +1,49 @@
-export default function TermosPage() {
+import Brand from "@/components/Brand";
+export default function Terms() {
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-4xl mx-auto px-4 py-16">
-        <h1 className="text-3xl font-bold text-blue-900 mb-8">Termos e Condições</h1>
-        
-        <div className="text-gray-600 space-y-4">
-          <p><strong>Última atualização:</strong> Fevereiro 2025</p>
-
-          <h2 className="text-xl font-bold text-blue-900 mt-8">1. Aceitação dos Termos</h2>
-          <p>Ao utilizar o site Procuracasa.pt, concorda com estes Termos e Condições. Se não concordar, por favor não utilize o nosso serviço.</p>
-
-          <h2 className="text-xl font-bold text-blue-900 mt-8">2. Descrição do Serviço</h2>
-          <p>O Procuracasa.pt é um serviço gratuito de apoio à procura de imóveis. O nosso serviço consiste em:</p>
-          <ul className="list-disc pl-6 space-y-1">
-            <li>Receber informações sobre o imóvel que procura</li>
-            <li>Pesquisar imóveis que correspondam às suas necessidades</li>
-            <li>Apresentar-lhe opções de imóveis disponíveis</li>
-          </ul>
-
-          <h2 className="text-xl font-bold text-blue-900 mt-8">3. Gratuidade</h2>
-          <p>O serviço de pesquisa de imóveis é totalmente gratuito para o utilizador. Não há qualquer custo ou compromisso até decidir avançar com a compra ou arrendamento de um imóvel.</p>
-
-          <h2 className="text-xl font-bold text-blue-900 mt-8">4. Responsabilidades</h2>
-          <p>O Procuracasa.pt:</p>
-          <ul className="list-disc pl-6 space-y-1">
-            <li>Compromete-se a fazer a pesquisa de imóveis com diligência</li>
-            <li>Não garante a disponibilidade permanente de imóveis que correspondam exatamente à procura</li>
-            <li>Não se responsabiliza por informações fornecidas por terceiros</li>
-          </ul>
-
-          <h2 className="text-xl font-bold text-blue-900 mt-8">5. Informações do Utilizador</h2>
-          <p>O utilizador compromete-se a fornecer informações verdadeiras e corretas no formulário de contacto.</p>
-
-          <h2 className="text-xl font-bold text-blue-900 mt-8">6. Propriedade Intelectual</h2>
-          <p>Todo o conteúdo do site (textos, imagens, logótipos) é propriedade do Procuracasa.pt e não pode ser utilizado sem autorização prévia.</p>
-
-          <h2 className="text-xl font-bold text-blue-900 mt-8">7. Alterações</h2>
-          <p>O Procuracasa.pt reserva-se o direito de alterar estes Termos a qualquer momento. As alterações serão comunicadas através do site.</p>
-
-          <h2 className="text-xl font-bold text-blue-900 mt-8">8. Lei Aplicável</h2>
-          <p>Estes Termos são regidos pela lei portuguesa. Qualquer litígio será submetido aos tribunais competentes em Portugal.</p>
-
-          <h2 className="text-xl font-bold text-blue-900 mt-8">9. Contacto</h2>
-          <p>Para questões sobre estes Termos: <a href="mailto:procuracasa@procuracasa.pt" className="text-orange-500">procuracasa@procuracasa.pt</a></p>
-        </div>
-      </div>
-    </div>
+    <>
+      <header className="header">
+        <Brand />
+        <a href="/">Voltar ao início</a>
+      </header>
+      <main className="section legal">
+        <p className="eyebrow">PROCURACASA</p>
+        <h1>Utilização do site</h1>
+        <h2>Apresentação</h2>
+        <p>
+          Procuracasa apresenta imóveis e permite contactar Carla Morais sobre a
+          procura de casa no Grande Porto. A mediação dos imóveis é realizada
+          pelas entidades licenciadas identificadas nas respetivas fichas, com o
+          seu número AMI. A marca Procuracasa não é apresentada como titular de
+          licença própria.
+        </p>
+        <h2>Informação dos imóveis</h2>
+        <p>
+          Os preços, características e disponibilidade devem ser confirmados com
+          a entidade responsável. Um pedido de informação ou visita não
+          constitui reserva, proposta aceite ou contrato. Os anúncios
+          reservados, vendidos ou arrendados são identificados com esse estado.
+        </p>
+        <h2>Imagens de ambiente</h2>
+        <p>
+          As imagens de ambiente são identificadas como tal e não representam
+          imóveis disponíveis. As fotografias inseridas nas fichas individuais
+          devem corresponder ao imóvel apresentado.
+        </p>
+        <h2>Pedidos de procura</h2>
+        <p>
+          O envio de preferências permite iniciar uma conversa sobre opções
+          adequadas, incluindo através de parceiros. Não garante que exista um
+          imóvel com essas características ou que seja encontrada uma solução
+          num prazo determinado. Eventuais serviços e condições comerciais devem
+          ser acordados previamente.
+        </p>
+        <h2>Informação a confirmar</h2>
+        <p>
+          A identificação comercial completa e os contactos das entidades
+          intervenientes devem ser confirmados antes da publicação desta versão.
+        </p>
+      </main>
+    </>
   );
 }
