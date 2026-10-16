@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Procuracasa | Carla Morais — Imóveis no Grande Porto",
   description:
-    "Imóveis em Vila do Conde, Matosinhos, Leça da Palmeira e Porto. Conheça as opções e partilhe a sua procura com Carla Morais.",
+    "Imóveis e acompanhamento com Carla Morais, com especial atenção ao Grande Porto e litoral. Procura noutra zona? Partilhe as suas preferências.",
   icons: { icon: "/brand.svg" },
   openGraph: {
     title: "Procuracasa · Carla Morais",

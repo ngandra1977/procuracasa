@@ -840,3 +840,7 @@ select {
 .legal p {
   line-height: 1.9;
 }
+
+.other-zone {
+  margin-top: 25px;
+}

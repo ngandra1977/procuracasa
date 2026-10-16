@@ -66,12 +66,19 @@ export default function Contact({ initial = "" }: { initial?: string }) {
         </label>
         <label>
           Zona de interesse
-          <select name="zone">
-            <option>Estou a explorar opções</option>
+          <input
+            name="zone"
+            list="contact-zones"
+            maxLength={200}
+            placeholder="Escolha ou escreva uma zona"
+            aria-describedby="zone-help"
+          />
+          <datalist id="contact-zones">
             {locations.map((l) => (
-              <option key={l}>{l}</option>
+              <option key={l} value={l} />
             ))}
-          </select>
+          </datalist>
+          <small id="zone-help">Pode indicar qualquer zona.</small>
         </label>
       </div>
       <div className="form-pair">

@@ -29,7 +29,7 @@ Mantém-se o destino Formspree existente (`xeelaaew`), agora através de uma rot
 - Carregar imóveis autorizados e confirmar preços, áreas, disponibilidade, entidade e AMI.
 - Confirmar a apresentação da Carla e o destino do formulário.
 - Completar a identificação do responsável pelo tratamento e rever privacidade/termos com os parceiros. Os textos foram adaptados ao novo formulário e incluem os pontos de identificação ainda por completar.
-- Substituir, se desejado, as fotografias de ambiente Unsplash por imagens próprias; a imagem inicial está identificada como ambiente e não é anúncio.
+- Substituir, se desejado, as fotografias de ambiente Unsplash incluídas em `public/images` por imagens próprias; a imagem inicial está identificada como ambiente e não é anúncio.
 - O SVG `public/brand.svg` é uma proposta vetorial de símbolo arquitetónico. O nome Procuracasa mantém-se; a disponibilidade de TERRACOTA não foi verificada.
 - A ferramenta de avaliação não foi integrada nesta fase.
 
@@ -38,3 +38,7 @@ O código não altera DNS, não publica na Vercel e não requer mudança de plat
 ## Validação realizada
 
 Compilação de produção (`npm run build -- --webpack`) e testes de segurança (`npm test`) concluídos. Os testes verificam sessões, adulteração, expiração, revogação por mudança da palavra-passe, bloqueio de acesso não autenticado, rejeição de publicação incompleta, origem, limitação de tentativas e validação do contacto. Não houve validação visual num browser, envio real de contacto nem teste integrado com Supabase, por faltarem configuração e credenciais.
+
+## Zonas de atuação
+
+As localidades destacadas são preferenciais. O formulário e a gestão permitem escrever qualquer localização, e os filtros do catálogo são gerados a partir dos imóveis carregados. As imagens de ambiente são servidas pelo próprio site; a pré-visualização HTML inclui as imagens para funcionar sem dependências externas.

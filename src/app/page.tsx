@@ -18,7 +18,7 @@ export default async function Home() {
         <Brand />
         <nav aria-label="Navegação principal">
           <a href="#imoveis">Imóveis</a>
-          <a href="#territorio">O nosso território</a>
+          <a href="#territorio">Zonas de referência</a>
           <a href="#carla">Carla Morais</a>
           <a className="nav-contact" href="#contacto">
             Vamos conversar ↗
@@ -37,7 +37,8 @@ export default async function Home() {
             </h1>
             <p>
               Uma nova casa começa com uma boa conversa. Descubra imóveis e
-              encontre acompanhamento próximo com Carla Morais, no Grande Porto.
+              encontre acompanhamento próximo com Carla Morais, com especial
+              atenção ao Grande Porto e abertura a outras zonas.
             </p>
             <div className="hero-actions">
               <a href="#imoveis" className="button">
@@ -56,7 +57,7 @@ export default async function Home() {
           </div>
           <div className="hero-image">
             <img
-              src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1400&q=85"
+              src="/images/interior-ambiente.jpg"
               alt="Interior luminoso com materiais naturais — imagem de ambiente, não corresponde a um imóvel anunciado"
             />
             <div className="image-caption">
@@ -67,7 +68,7 @@ export default async function Home() {
           </div>
         </section>
         <div className="location-strip">
-          <span>CONHECER O LUGAR FAZ A DIFERENÇA</span>
+          <span>AS NOSSAS ZONAS DE REFERÊNCIA</span>
           <p>
             Vila do Conde <i>·</i> Matosinhos <i>·</i> Leça da Palmeira <i>·</i>{" "}
             Porto
@@ -107,13 +108,13 @@ export default async function Home() {
           <div className="territory-image">
             <img
               loading="lazy"
-              src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1000&q=85"
+              src="/images/porto-ambiente.jpg"
               alt="Arquitetura e paisagem urbana do Porto"
             />
             <span>PORTO, COM OUTRO OLHAR.</span>
           </div>
           <div>
-            <p className="eyebrow">O NOSSO TERRITÓRIO</p>
+            <p className="eyebrow">ZONAS DE REFERÊNCIA</p>
             <h2>
               Da vida da cidade
               <br />à calma da costa.
@@ -121,7 +122,9 @@ export default async function Home() {
             <p>
               O Grande Porto oferece diferentes formas de viver. A procura
               acompanha as suas prioridades: a proximidade da praia, os acessos,
-              o bairro e o espaço de que precisa.
+              o bairro e o espaço de que precisa. Estas são as nossas zonas
+              preferenciais de atuação; acompanhamos também pedidos noutras
+              localidades.
             </p>
             <div className="zone-list">
               {locations.map((l, i) => (
@@ -132,6 +135,9 @@ export default async function Home() {
                 </a>
               ))}
             </div>
+            <a className="underlink other-zone" href="#contacto">
+              Procura noutra zona? Conte-nos onde ↗
+            </a>
           </div>
         </section>
         <section className="about section" id="carla">
@@ -155,7 +161,7 @@ export default async function Home() {
             <p>
               A Carla trabalha no Grande Porto, com especial incidência em Vila
               do Conde e nas zonas costeiras de Matosinhos e Porto. A procura
-              parte do que faz sentido para si.
+              parte do que faz sentido para si, incluindo noutras zonas.
             </p>
             <p>
               O acompanhamento é desenvolvido em parceria com entidades de

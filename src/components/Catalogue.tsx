@@ -1,10 +1,13 @@
 "use client";
 import { useState } from "react";
-import { Property, locations, price } from "@/lib/properties";
+import { Property, price } from "@/lib/properties";
 export default function Catalogue({ properties }: { properties: Property[] }) {
   const [zone, setZone] = useState("");
   const [operation, setOperation] = useState("");
   const [budget, setBudget] = useState("");
+  const availableLocations = Array.from(
+    new Set(properties.map((p) => p.location)),
+  ).sort((a, b) => a.localeCompare(b, "pt-PT"));
   const filtered = properties.filter(
     (p) =>
       (!zone || p.location === zone) &&
@@ -18,7 +21,7 @@ export default function Catalogue({ properties }: { properties: Property[] }) {
           Localização
           <select value={zone} onChange={(e) => setZone(e.target.value)}>
             <option value="">Todas as zonas</option>
-            {locations.map((l) => (
+            {availableLocations.map((l) => (
               <option key={l}>{l}</option>
             ))}
           </select>

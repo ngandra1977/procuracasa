@@ -195,14 +195,19 @@ export default function Management() {
                 <div className="form-pair">
                   <label>
                     Localização
-                    <select
+                    <input
+                      required
+                      list="property-zones"
+                      maxLength={200}
                       value={edit.location}
                       onChange={(e) => field("location", e.target.value)}
-                    >
+                      placeholder="Escolha ou escreva uma zona"
+                    />
+                    <datalist id="property-zones">
                       {locations.map((l) => (
-                        <option key={l}>{l}</option>
+                        <option key={l} value={l} />
                       ))}
-                    </select>
+                    </datalist>
                   </label>
                   <label>
                     Finalidade
