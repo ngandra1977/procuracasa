@@ -2,6 +2,7 @@ import Brand from "@/components/Brand";
 import Catalogue from "@/components/Catalogue";
 import Contact from "@/components/Contact";
 import DirectContacts from "@/components/DirectContacts";
+import { toolPages } from "@/lib/tools";
 import { getProperties } from "@/lib/server";
 import { locations, Property } from "@/lib/properties";
 export const dynamic = "force-dynamic";
@@ -15,11 +16,13 @@ export default async function Home() {
   }
   return (
     <>
-      <header className="header">
+      <header className="header home-header">
         <Brand />
         <nav aria-label="Navegação principal">
           <a href="#imoveis">Imóveis</a>
-          <a href="#territorio">Zonas de referência</a>
+          <a className="nav-tools" href="/ferramentas">
+            Ferramentas e guias
+          </a>
           <a href="#sobre">Sobre a Procuracasa</a>
           <a className="nav-contact" href="#contacto">
             Vamos conversar ↗
@@ -174,6 +177,36 @@ export default async function Home() {
             </a>
           </div>
         </section>
+        <section className="tools-teaser section" id="ferramentas">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">FERRAMENTAS E GUIAS · SEM REGISTO</p>
+              <h2>
+                Prepare a sua
+                <br />
+                próxima decisão.
+              </h2>
+            </div>
+            <p>
+              Faça as contas, organize os documentos e leve as perguntas certas
+              para a visita.
+            </p>
+          </div>
+          <div className="tools-grid">
+            {toolPages.map((t) => (
+              <a
+                key={t.slug}
+                className="tool-card"
+                href={`/ferramentas/${t.slug}`}
+              >
+                <p className="eyebrow">{t.kind}</p>
+                <h3>{t.title}</h3>
+                <p>{t.description}</p>
+                <span className="underlink">{t.action} ↗</span>
+              </a>
+            ))}
+          </div>
+        </section>
         <section className="contact-section section" id="contacto">
           <div>
             <p className="eyebrow">VAMOS ENCONTRAR O SEU LUGAR</p>
@@ -216,6 +249,7 @@ export default async function Home() {
           <a href="mailto:procuracasa@procuracasa.pt">
             procuracasa@procuracasa.pt
           </a>
+          <a href="/ferramentas">Ferramentas e guias</a>
           <a href="/privacidade">Privacidade</a>
           <a href="/termos">Termos</a>
           <a href="/gestao">Área de gestão</a>

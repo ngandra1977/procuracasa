@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ReactNode } from "react";
 import "./globals.css";
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.procuracasa.pt"),
   title: "Procuracasa | Imóveis no Grande Porto",
   description:
     "Imóveis e acompanhamento próximo, com especial atenção ao Grande Porto e litoral. Procura noutra zona? Partilhe as suas preferências.",

@@ -31,6 +31,15 @@ export default function Privacy() {
           serviço está configurado. O formulário não guarda os seus dados na
           base de dados de imóveis.
         </p>
+        <h2>Calculadoras e checklists</h2>
+        <p>
+          Os valores introduzidos nas calculadoras são processados no navegador
+          e não são enviados por essas ferramentas. As marcações das checklists
+          são guardadas no armazenamento local do navegador, sem registo de
+          conta; pode apagá-las com o botão de limpar ou nas definições do
+          navegador. Os valores e marcações não são incluídos automaticamente no
+          formulário de contacto.
+        </p>
         <h2>Procura através de parceiros</h2>
         <p>
           Podemos procurar opções através de entidades de mediação imobiliária

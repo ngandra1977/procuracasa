@@ -38,6 +38,14 @@ export default function Terms() {
           num prazo determinado. Eventuais serviços e condições comerciais devem
           ser acordados previamente.
         </p>
+        <h2>Ferramentas e guias</h2>
+        <p>
+          As calculadoras são estimativas com os pressupostos e âmbito indicados
+          em cada página. Não constituem propostas de crédito, avaliações
+          bancárias, liquidações fiscais ou garantia de financiamento. As
+          checklists são orientadoras e devem ser adaptadas ao caso concreto. As
+          fontes e a data de verificação constam das páginas relevantes.
+        </p>
         <h2>Informação a confirmar</h2>
         <p>
           A identificação comercial completa e os contactos das entidades

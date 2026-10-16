@@ -42,3 +42,16 @@ Compilação de produção (`npm run build -- --webpack`) e testes de segurança
 ## Zonas de atuação
 
 As localidades destacadas são preferenciais. O formulário e a gestão permitem escrever qualquer localização, e os filtros do catálogo são gerados a partir dos imóveis carregados. As imagens de ambiente são servidas pelo próprio site; a pré-visualização HTML inclui as imagens para funcionar sem dependências externas.
+
+## Ferramentas e guias
+
+Secção pública em `/ferramentas`, com quatro páginas indexáveis, metadados próprios e ligações na página inicial:
+
+- `/ferramentas/custos-compra`: entrada, IMT e selo, formalização/registos e despesas indicadas. Taxas 2026 de Portugal continental para pessoas singulares residentes, compra integral, sem IMT Jovem ou outras isenções. Finalidades HPP, habitação secundária, outros urbanos e rústicos. As tabelas e pressupostos estão em `src/lib/calculators.ts` e na página. Rever no início de cada ano e após alterações fiscais.
+- `/ferramentas/prestacao-credito`: amortização com TAN constante, juros, encargos mensais opcionais e sensibilidade a +2 p.p. Não é uma oferta, TAEG, MTIC ou avaliação bancária.
+- `/ferramentas/documentos`: checklists de preparação para comprar e vender, adaptáveis ao caso.
+- `/ferramentas/checklist-visita`: preparação e acompanhamento de visitas.
+
+As calculadoras funcionam no navegador sem enviar os valores. As checklists usam localStorage versionado apenas para as marcações e permitem descarregar texto, imprimir ou guardar PDF pela impressão do navegador. Não há registo nem recolha de email para usar as ferramentas. As fontes e data de revisão são visíveis. A avaliação automática não foi integrada.
+
+`robots.txt` e `sitemap.xml` incluem os conteúdos públicos e os imóveis da carteira, sem indexar gestão/API. Não há garantia de indexação ou tráfego. Os testes numéricos cobrem os escalões fiscais, taxas únicas, VPT, imposto sobre crédito, amortização e juros zero (`npm test`).

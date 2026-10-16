@@ -670,7 +670,7 @@ select {
   .header nav {
     gap: 18px;
   }
-  .header nav a:nth-child(2) {
+  .header nav a[href="#sobre"] {
     display: none;
   }
   .hero {
@@ -891,4 +891,523 @@ select {
 .location-field {
   display: grid;
   gap: 14px;
+}
+/* Ferramentas e guias */
+.tools-main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 65px 6% 0;
+}
+.tool-heading {
+  max-width: 800px;
+  margin-bottom: 45px;
+}
+.tool-heading h1 {
+  font-size: clamp(42px, 5.5vw, 76px);
+  margin: 20px 0 25px;
+}
+.tool-heading > p:last-child {
+  max-width: 650px;
+  font-size: 16px;
+}
+.tool-back {
+  display: inline-block;
+  font-size: 12px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--line);
+}
+.tools-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.tool-card {
+  position: relative;
+  border: 1px solid var(--line);
+  padding: 38px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: background 0.2s;
+}
+.tool-card:hover {
+  background: var(--sand);
+}
+.tool-card h2 {
+  font-size: 36px;
+  max-width: 350px;
+  margin: 24px 0 18px;
+}
+.tool-card > p:not(.eyebrow) {
+  font-size: 14px;
+  max-width: 360px;
+  margin-bottom: 30px;
+}
+.tool-card .underlink {
+  margin-top: auto;
+}
+.tool-number {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  color: var(--terra);
+  font:
+    italic 25px Georgia,
+    serif;
+}
+.tools-teaser {
+  background: var(--sand);
+}
+.tools-teaser .tools-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+.tools-teaser .tool-card {
+  padding: 25px;
+  background: var(--paper);
+}
+.tools-teaser .tool-card h3 {
+  font-size: 27px;
+  margin: 20px 0 15px;
+}
+.tools-teaser .tool-card > p {
+  font-size: 13px;
+}
+.tools-teaser .tool-number {
+  display: none;
+}
+.tools-teaser .underlink {
+  font-size: 11px;
+}
+.tool-scope {
+  border-left: 3px solid var(--terra);
+  background: var(--sand);
+  padding: 20px 25px;
+  margin: 0 0 35px;
+  font-size: 13px;
+}
+.tool-scope > p {
+  margin-top: 8px;
+}
+.calculator-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 35px;
+  align-items: start;
+}
+.calculator-inputs {
+  display: grid;
+  gap: 22px;
+}
+.calculator-inputs label {
+  font-size: 12px;
+}
+.calculator-inputs small {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.calculator-result {
+  padding: 32px;
+  background: var(--sand);
+}
+.calculator-result .result-total {
+  font-family: Georgia, serif;
+  font-size: clamp(33px, 4vw, 53px);
+  line-height: 1.2;
+  color: var(--terra);
+  margin: 15px 0 12px;
+  overflow-wrap: anywhere;
+  letter-spacing: -1.5px;
+}
+.calculator-result > p:not(.eyebrow):not(.result-total) {
+  font-size: 12px;
+}
+.calculator-result dl {
+  margin: 25px 0;
+}
+.calculator-result dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #d8cebf;
+  padding: 12px 0;
+  font-size: 12px;
+}
+.calculator-result dt {
+  color: var(--muted);
+  max-width: 66%;
+}
+.calculator-result dd {
+  margin: 0;
+  white-space: nowrap;
+}
+.result-subtotal dd {
+  font-weight: 600;
+}
+.result-note {
+  font-size: 11px !important;
+  line-height: 1.65;
+}
+.tool-explanation {
+  max-width: 830px;
+  margin: 65px 0;
+}
+.tool-explanation h2 {
+  font-size: 38px;
+  margin: 0 0 24px;
+}
+.tool-explanation p {
+  font-size: 14px;
+  margin: 16px 0;
+}
+.tool-explanation .underlink {
+  margin-top: 12px;
+}
+.tool-explanation details {
+  padding: 20px 0;
+  border-block: 1px solid var(--line);
+  margin: 25px 0;
+}
+.tool-explanation summary {
+  cursor: pointer;
+  font-size: 14px;
+}
+.tool-explanation a:not(.underlink) {
+  text-decoration: underline;
+}
+.tool-disclaimer {
+  font-size: 12px !important;
+}
+.tool-sources {
+  border-top: 1px solid var(--line);
+  padding: 25px 0;
+  font-size: 12px;
+  max-width: 900px;
+}
+.tool-sources > p {
+  margin: 8px 0;
+}
+.tool-sources ul {
+  padding-left: 20px;
+  line-height: 2;
+}
+.tool-sources a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.tool-cta {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 50px;
+  padding: 55px 0;
+  margin-top: 40px;
+  border-top: 1px solid var(--line);
+}
+.tool-cta h2 {
+  font-size: 40px;
+  margin: 20px 0;
+}
+.tool-cta p:not(.eyebrow) {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.local-note {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.loan-bar {
+  height: 12px;
+  background: var(--terra);
+  margin-top: 25px;
+}
+.loan-bar > span {
+  height: 100%;
+  display: block;
+  background: #4b5344;
+}
+.bar-key {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  margin: 8px 0 20px;
+}
+.bar-key > span:first-child {
+  color: #4b5344;
+}
+.bar-key > span:last-child {
+  color: var(--terra);
+}
+.stress-result {
+  border-top: 1px solid #d8cebf;
+  padding-top: 22px;
+  margin-top: 20px;
+}
+.stress-result strong {
+  display: block;
+  font:
+    30px Georgia,
+    serif;
+  color: var(--terra);
+  margin: 15px 0;
+}
+.stress-result p:not(.eyebrow) {
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+.checklist-mode {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+.checklist-mode button {
+  border: 1px solid var(--terra);
+  background: transparent;
+  color: var(--terra);
+  padding: 12px 25px;
+  font-size: 13px;
+}
+.checklist-mode button[aria-pressed="true"] {
+  background: var(--terra);
+  color: white;
+}
+.checklist-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  padding: 22px 0;
+  border-block: 1px solid var(--line);
+}
+.checklist-toolbar > div > p:last-child {
+  font-size: 13px;
+  margin-top: 5px;
+}
+.checklist-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.checklist .local-note {
+  margin: 18px 0;
+}
+.checklist-section {
+  margin: 40px 0;
+}
+.checklist-section h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+.checklist-item {
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  padding: 22px 15px;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  letter-spacing: 0;
+}
+.checklist-item > input {
+  width: 20px;
+  height: 20px;
+  min-height: 20px;
+  margin: 3px 0 0;
+  accent-color: var(--terra);
+  flex-shrink: 0;
+}
+.checklist-item > span {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.checklist-item strong {
+  font-size: 14px;
+  font-weight: 500;
+}
+.checklist-item > span > span {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.checklist-item.is-checked {
+  background: var(--sand);
+}
+.checklist-item.is-checked strong {
+  text-decoration: line-through;
+  text-decoration-color: var(--terra);
+}
+.tool-header nav {
+  gap: 22px;
+}
+@media (max-width: 1000px) {
+  .tools-teaser .tools-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tool-card {
+    padding: 28px;
+  }
+  .calculator-layout {
+    gap: 22px;
+  }
+  .calculator-result {
+    padding: 24px;
+  }
+  .calculator-result dl > div {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .calculator-result dt {
+    max-width: 100%;
+  }
+  .calculator-result dd {
+    margin-left: auto;
+  }
+  .checklist-toolbar {
+    align-items: flex-start;
+  }
+  .checklist-actions {
+    gap: 10px;
+  }
+}
+@media (max-width: 650px) {
+  .tools-main {
+    padding: 40px 6% 0;
+  }
+  .tools-grid,
+  .tools-teaser .tools-grid,
+  .calculator-layout,
+  .tool-cta {
+    grid-template-columns: 1fr;
+  }
+  .tool-card h2 {
+    font-size: 32px;
+  }
+  .tool-heading h1 {
+    font-size: 46px;
+  }
+  .tool-heading > p:last-child {
+    font-size: 14px;
+  }
+  .tool-cta {
+    gap: 10px;
+  }
+  .tool-cta h2 {
+    font-size: 35px;
+  }
+  .tool-header {
+    flex-wrap: wrap;
+  }
+  .tool-header nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .tool-header nav > a {
+    display: block;
+    font-size: 11px;
+  }
+  .tool-header nav > a:nth-child(2) {
+    display: none;
+  }
+  .tool-header nav > .nav-contact {
+    display: block;
+  }
+  .checklist-toolbar {
+    flex-direction: column;
+  }
+  .checklist-section h2 {
+    font-size: 27px;
+  }
+  .checklist-item {
+    padding-inline: 0;
+  }
+  .tool-scope {
+    padding: 18px;
+  }
+  .tool-cta .hero-actions {
+    margin-top: 5px;
+  }
+}
+@media print {
+  body {
+    background: white;
+    color: black;
+    font-size: 11pt;
+  }
+  .header,
+  .footer,
+  .tool-cta,
+  .tool-back,
+  .checklist-actions,
+  .checklist-mode,
+  .contact-socials,
+  .direct-contacts {
+    display: none !important;
+  }
+  .tools-main {
+    max-width: none;
+    padding: 0;
+  }
+  .tool-heading h1 {
+    font-size: 28pt;
+  }
+  .tool-heading {
+    margin-bottom: 20px;
+  }
+  .tool-heading p,
+  .tool-explanation p,
+  .checklist-item > span > span {
+    color: #333;
+  }
+  .checklist-toolbar {
+    padding: 10px 0;
+  }
+  .checklist-item,
+  .calculator-result {
+    break-inside: avoid;
+  }
+  .checklist-section h2 {
+    font-size: 17pt;
+  }
+  .checklist-item {
+    padding: 10px 0;
+  }
+  .checklist-item input {
+    appearance: auto;
+  }
+  .calculator-layout {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tool-sources {
+    font-size: 9pt;
+  }
+  .checklist .local-note {
+    font-size: 9pt;
+  }
+  .tool-explanation {
+    margin: 25px 0;
+  }
+  .tool-scope,
+  .calculator-result,
+  .checklist-item.is-checked {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .tool-heading > p:first-child {
+    font-size: 8pt;
+  }
+}
+
+@media (max-width: 650px) {
+  .home-header {
+    flex-wrap: wrap;
+  }
+  .home-header nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .home-header nav .nav-tools {
+    display: block;
+    font-size: 11px;
+  }
 }
