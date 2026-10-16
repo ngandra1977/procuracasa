@@ -1,12 +1,19 @@
 "use client";
 import { FormEvent, useEffect, useState } from "react";
 import Brand from "@/components/Brand";
-import { locations, Property, price } from "@/lib/properties";
+import {
+  locations,
+  Property,
+  price,
+  propertyTypes,
+  isResidential,
+} from "@/lib/properties";
 const blank: Property = {
   id: "",
   title: "",
   location: "Vila do Conde",
   price: 0,
+  property_type: "Apartamento",
   bedrooms: 2,
   area: 0,
   operation: "Venda",
@@ -192,6 +199,25 @@ export default function Management() {
                     onChange={(e) => field("title", e.target.value)}
                   />
                 </label>
+                <label>
+                  Tipo de imóvel
+                  <select
+                    value={edit.property_type}
+                    onChange={(e) => {
+                      const type = e.target.value as Property["property_type"];
+                      setEdit({
+                        ...edit,
+                        property_type: type,
+                        bedrooms: isResidential(type) ? edit.bedrooms : 0,
+                        energy: type === "Terreno" ? "" : edit.energy,
+                      });
+                    }}
+                  >
+                    {propertyTypes.map((type) => (
+                      <option key={type}>{type}</option>
+                    ))}
+                  </select>
+                </label>
                 <div className="form-pair">
                   <label>
                     Localização
@@ -232,7 +258,9 @@ export default function Management() {
                     />
                   </label>
                   <label>
-                    Área (m²)
+                    {edit.property_type === "Terreno"
+                      ? "Área do terreno (m²)"
+                      : "Área (m²)"}
                     <input
                       type="number"
                       required
@@ -243,19 +271,21 @@ export default function Management() {
                   </label>
                 </div>
                 <div className="form-pair">
-                  <label>
-                    Quartos (0 = T0)
-                    <input
-                      type="number"
-                      required
-                      min="0"
-                      step="1"
-                      value={edit.bedrooms}
-                      onChange={(e) =>
-                        field("bedrooms", Number(e.target.value))
-                      }
-                    />
-                  </label>
+                  {isResidential(edit.property_type) && (
+                    <label>
+                      Quartos (0 = T0)
+                      <input
+                        type="number"
+                        required
+                        min="0"
+                        step="1"
+                        value={edit.bedrooms}
+                        onChange={(e) =>
+                          field("bedrooms", Number(e.target.value))
+                        }
+                      />
+                    </label>
+                  )}
                   <label>
                     Referência
                     <input

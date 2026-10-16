@@ -1,7 +1,15 @@
 "use client";
 import { FormEvent, useState } from "react";
-import { locations } from "@/lib/properties";
-export default function Contact({ initial = "" }: { initial?: string }) {
+import { locations, propertyTypes, isResidential } from "@/lib/properties";
+export default function Contact({
+  initial = "",
+  initialPropertyType = "",
+}: {
+  initial?: string;
+  initialPropertyType?: string;
+}) {
+  const [propertyType, setPropertyType] = useState(initialPropertyType);
+  const showBedrooms = !propertyType || isResidential(propertyType);
   const [state, setState] = useState("");
   const [busy, setBusy] = useState(false);
   async function submit(e: FormEvent<HTMLFormElement>) {
@@ -19,13 +27,14 @@ export default function Contact({ initial = "" }: { initial?: string }) {
           email: data.get("email"),
           consent: data.get("consent") === "on",
           website: data.get("website"),
-          message: `${data.get("message")}\nZona: ${data.get("zone")}\nOrçamento: ${data.get("budget")}\nTipologia: ${data.get("bedrooms")}\nPrazo: ${data.get("timeline")}\nTelefone: ${data.get("phone")}`,
+          message: `${data.get("message")}\nTipo de imóvel: ${data.get("property_type") || "Sem preferência"}\nZona: ${data.get("zone")}\nOrçamento: ${data.get("budget")}\nTipologia: ${showBedrooms ? data.get("bedrooms") : "Não aplicável"}\nPrazo: ${data.get("timeline")}\nTelefone: ${data.get("phone")}`,
         }),
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error);
       setState("Pedido enviado. Entraremos em contacto consigo.");
       form.reset();
+      setPropertyType(initialPropertyType);
     } catch (error) {
       setState(
         error instanceof Error ? error.message : "Não foi possível enviar.",
@@ -81,6 +90,19 @@ export default function Contact({ initial = "" }: { initial?: string }) {
           <small id="zone-help">Pode indicar qualquer zona.</small>
         </label>
       </div>
+      <label>
+        Tipo de imóvel
+        <select
+          name="property_type"
+          value={propertyType}
+          onChange={(e) => setPropertyType(e.target.value)}
+        >
+          <option value="">Sem preferência</option>
+          {propertyTypes.map((type) => (
+            <option key={type}>{type}</option>
+          ))}
+        </select>
+      </label>
       <div className="form-pair">
         <label>
           Orçamento máximo
@@ -88,8 +110,10 @@ export default function Contact({ initial = "" }: { initial?: string }) {
         </label>
         <label>
           Tipologia
-          <select name="bedrooms">
-            <option>Sem preferência</option>
+          <select name="bedrooms" disabled={!showBedrooms}>
+            <option>
+              {showBedrooms ? "Sem preferência" : "Não aplicável"}
+            </option>
             {["T0", "T1", "T2", "T3", "T4 ou superior"].map((v) => (
               <option key={v}>{v}</option>
             ))}

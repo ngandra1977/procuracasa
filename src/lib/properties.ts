@@ -1,8 +1,22 @@
+export const propertyTypes = [
+  "Apartamento",
+  "Moradia",
+  "Terreno",
+  "Loja",
+  "Escritório",
+  "Armazém",
+  "Outro",
+] as const;
+export type PropertyType = (typeof propertyTypes)[number];
+export function isResidential(type: string) {
+  return type === "Apartamento" || type === "Moradia";
+}
 export type Property = {
   id: string;
   title: string;
   location: string;
   price: number;
+  property_type: PropertyType;
   bedrooms: number;
   area: number;
   operation: "Venda" | "Arrendamento";

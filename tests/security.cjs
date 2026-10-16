@@ -61,6 +61,20 @@ function load(relative) {
       return new Response('{}');
     };
     await database('/storage/v1/object/property-images/test', { headers: { 'Content-Type': 'image/jpeg' } });
+    let saved;
+    global.fetch = async (url, options) => {
+      saved = JSON.parse(options.body);
+      return new Response(null, { status: 201 });
+    };
+    assert.equal((await properties.POST(request({ ...listing, status: 'rascunho', property_type: 'Terreno', bedrooms: undefined }))).status, 200);
+    assert.equal(saved.property_type, 'Terreno');
+    assert.equal(saved.bedrooms, 0, 'Um terreno não exige quartos');
+    assert.equal((await properties.POST(request({ ...listing, status: 'rascunho', property_type: 'Moradia', bedrooms: 3 }))).status, 200);
+    assert.equal(saved.property_type, 'Moradia');
+    assert.equal(saved.bedrooms, 3);
+    assert.equal((await properties.POST(request({ ...listing, status: 'rascunho' }))).status, 200);
+    assert.equal(saved.property_type, 'Apartamento', 'Compatibilidade com anúncios anteriores');
+    assert.equal((await properties.POST(request({ ...listing, status: 'rascunho', property_type: 'invalid' }))).status, 400);
     delete process.env.SUPABASE_SECRET_KEY;
     process.env.SUPABASE_SERVICE_ROLE_KEY = 'legacy-test-only';
     global.fetch = async (url, options) => {

@@ -1,3 +1,4 @@
+import { propertyTypes, isResidential } from "@/lib/properties";
 import { NextResponse } from "next/server";
 import { authorized } from "@/lib/auth";
 import { database } from "@/lib/server";
@@ -22,7 +23,11 @@ export async function POST(request: Request) {
     return new Response(null, { status: 403 });
   try {
     const input = await request.json();
+    input.property_type ??= "Apartamento";
+    if (!isResidential(input.property_type)) input.bedrooms = 0;
+    if (input.property_type === "Terreno") input.energy = "";
     if (
+      !propertyTypes.includes(input.property_type) ||
       !input.title ||
       !input.location ||
       !["Venda", "Arrendamento"].includes(input.operation) ||
@@ -60,6 +65,7 @@ export async function POST(request: Request) {
         { status: 400 },
       );
     const fields = [
+      "property_type",
       "title",
       "location",
       "price",

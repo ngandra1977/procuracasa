@@ -1,7 +1,13 @@
 "use client";
 import { useState } from "react";
-import { Property, price } from "@/lib/properties";
+import {
+  Property,
+  price,
+  propertyTypes,
+  isResidential,
+} from "@/lib/properties";
 export default function Catalogue({ properties }: { properties: Property[] }) {
+  const [propertyType, setPropertyType] = useState("");
   const [zone, setZone] = useState("");
   const [operation, setOperation] = useState("");
   const [budget, setBudget] = useState("");
@@ -10,6 +16,7 @@ export default function Catalogue({ properties }: { properties: Property[] }) {
   ).sort((a, b) => a.localeCompare(b, "pt-PT"));
   const filtered = properties.filter(
     (p) =>
+      (!propertyType || p.property_type === propertyType) &&
       (!zone || p.location === zone) &&
       (!operation || p.operation === operation) &&
       (!budget || p.price <= Number(budget)),
@@ -17,6 +24,18 @@ export default function Catalogue({ properties }: { properties: Property[] }) {
   return (
     <>
       <div className="filters">
+        <label>
+          Tipo de imóvel
+          <select
+            value={propertyType}
+            onChange={(e) => setPropertyType(e.target.value)}
+          >
+            <option value="">Todos os tipos</option>
+            {propertyTypes.map((type) => (
+              <option key={type}>{type}</option>
+            ))}
+          </select>
+        </label>
         <label>
           Localização
           <select value={zone} onChange={(e) => setZone(e.target.value)}>
@@ -50,6 +69,7 @@ export default function Catalogue({ properties }: { properties: Property[] }) {
         <button
           className="text-button"
           onClick={() => {
+            setPropertyType("");
             setZone("");
             setOperation("");
             setBudget("");
@@ -83,7 +103,8 @@ export default function Catalogue({ properties }: { properties: Property[] }) {
               <h3>{p.title}</h3>
               <p className="property-price">{price(p)}</p>
               <div className="property-specs">
-                <span>T{p.bedrooms}</span>
+                <span>{p.property_type}</span>
+                {isResidential(p.property_type) && <span>T{p.bedrooms}</span>}
                 <span>{p.area} m²</span>
                 <span>Ref. {p.reference || p.id.slice(0, 8)}</span>
               </div>

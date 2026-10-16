@@ -2,6 +2,7 @@ create table if not exists public.properties (
  id uuid primary key default gen_random_uuid(),
  created_at timestamptz not null default now(),
  title text not null,
+ property_type text not null default 'Apartamento' check (property_type in ('Apartamento','Moradia','Terreno','Loja','Escritório','Armazém','Outro')),
  location text not null,
  price numeric not null check (price > 0),
  bedrooms integer not null check (bedrooms >= 0),

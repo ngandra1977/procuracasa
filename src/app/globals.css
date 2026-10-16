@@ -291,7 +291,7 @@ h2 + .eyebrow {
 }
 .filters {
   display: grid;
-  grid-template-columns: 1.2fr 1fr 1fr auto;
+  grid-template-columns: 1fr 1.2fr 1fr 1fr auto;
   gap: 25px;
   align-items: end;
   padding: 25px 0;

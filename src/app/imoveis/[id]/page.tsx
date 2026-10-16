@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Brand from "@/components/Brand";
 import Contact from "@/components/Contact";
 import { getProperties } from "@/lib/server";
-import { price } from "@/lib/properties";
+import { price, isResidential } from "@/lib/properties";
 export const dynamic = "force-dynamic";
 export default async function PropertyPage({
   params,
@@ -45,9 +45,12 @@ export default async function PropertyPage({
         <div className="detail-columns">
           <article>
             <div className="property-specs">
-              <span>T{p.bedrooms}</span>
+              <span>{p.property_type}</span>
+              {isResidential(p.property_type) && <span>T{p.bedrooms}</span>}
               <span>{p.area} m²</span>
-              <span>Energia: {p.energy || "Não indicada"}</span>
+              {p.property_type !== "Terreno" && (
+                <span>Energia: {p.energy || "Não indicada"}</span>
+              )}
             </div>
             <h2>Um espaço para conhecer.</h2>
             <p className="description">{p.description}</p>
@@ -64,6 +67,7 @@ export default async function PropertyPage({
             </h2>
             <p>Envie-nos o seu pedido.</p>
             <Contact
+              initialPropertyType={p.property_type}
               initial={`Gostaria de saber mais sobre ${p.title} (referência ${p.reference || p.id}).`}
             />
           </aside>
