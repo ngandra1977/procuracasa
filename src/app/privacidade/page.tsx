@@ -19,8 +19,8 @@ export default function Privacy() {
         <h2>Para que são utilizados</h2>
         <p>
           Os dados destinam-se a responder ao seu pedido e a acompanhar a
-          procura de imóvel com Carla Morais. O consentimento é solicitado no
-          formulário. Este consentimento não corresponde a uma subscrição de
+          procura de imóvel através da Procuracasa. O consentimento é solicitado
+          no formulário. Este consentimento não corresponde a uma subscrição de
           publicidade ou newsletter.
         </p>
         <h2>Envio e armazenamento</h2>

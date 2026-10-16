@@ -11,7 +11,7 @@ export default function Terms() {
         <h1>Utilização do site</h1>
         <h2>Apresentação</h2>
         <p>
-          Procuracasa apresenta imóveis e permite contactar Carla Morais sobre a
+          Procuracasa apresenta imóveis e permite entrar em contacto sobre a
           procura de casa no Grande Porto. A mediação dos imóveis é realizada
           pelas entidades licenciadas identificadas nas respetivas fichas, com o
           seu número AMI. A marca Procuracasa não é apresentada como titular de

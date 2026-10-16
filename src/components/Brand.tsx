@@ -4,7 +4,7 @@ export default function Brand() {
       <img src="/brand.svg" alt="" width="42" height="42" />
       <span>
         procuracasa
-        <span className="brand-sub">CARLA MORAIS · GRANDE PORTO</span>
+        <span className="brand-sub">IMÓVEIS · GRANDE PORTO</span>
       </span>
     </a>
   );

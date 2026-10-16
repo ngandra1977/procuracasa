@@ -19,7 +19,7 @@ export default async function Home() {
         <nav aria-label="Navegação principal">
           <a href="#imoveis">Imóveis</a>
           <a href="#territorio">Zonas de referência</a>
-          <a href="#carla">Carla Morais</a>
+          <a href="#sobre">Sobre a Procuracasa</a>
           <a className="nav-contact" href="#contacto">
             Vamos conversar ↗
           </a>
@@ -37,8 +37,8 @@ export default async function Home() {
             </h1>
             <p>
               Uma nova casa começa com uma boa conversa. Descubra imóveis e
-              encontre acompanhamento próximo com Carla Morais, com especial
-              atenção ao Grande Porto e abertura a outras zonas.
+              encontre acompanhamento próximo, com especial atenção ao Grande
+              Porto e abertura a outras zonas.
             </p>
             <div className="hero-actions">
               <a href="#imoveis" className="button">
@@ -51,7 +51,7 @@ export default async function Home() {
             <div className="signature">
               <span className="signature-line" />
               <span>
-                Carla Morais<small>PROXIMIDADE EM CADA PASSO.</small>
+                Procuracasa<small>PROXIMIDADE EM CADA PASSO.</small>
               </span>
             </div>
           </div>
@@ -95,9 +95,9 @@ export default async function Home() {
           {unavailable ? (
             <div className="empty">
               <h3>O catálogo está temporariamente indisponível.</h3>
-              <p>Pode continuar a enviar o seu pedido à Carla.</p>
+              <p>Pode continuar a enviar-nos o seu pedido.</p>
               <a href="#contacto" className="button">
-                Falar com a Carla ↗
+                Falar connosco ↗
               </a>
             </div>
           ) : (
@@ -140,14 +140,14 @@ export default async function Home() {
             </a>
           </div>
         </section>
-        <section className="about section" id="carla">
+        <section className="about section" id="sobre">
           <div>
             <p className="eyebrow">ACOMPANHAMENTO COM PROXIMIDADE</p>
             <h2>
               Uma casa é pessoal.
               <br />A procura também.
             </h2>
-            <span className="carla-name">Carla Morais</span>
+            <span className="about-brand">Procuracasa</span>
             <span className="eyebrow">PROCURACASA · GRANDE PORTO</span>
           </div>
           <div>
@@ -159,9 +159,9 @@ export default async function Home() {
               Acompanhar a decisão.
             </p>
             <p>
-              A Carla trabalha no Grande Porto, com especial incidência em Vila
-              do Conde e nas zonas costeiras de Matosinhos e Porto. A procura
-              parte do que faz sentido para si, incluindo noutras zonas.
+              Acompanhamos a procura no Grande Porto, com especial incidência em
+              Vila do Conde e nas zonas costeiras de Matosinhos e Porto. A
+              procura parte do que faz sentido para si, incluindo noutras zonas.
             </p>
             <p>
               O acompanhamento é desenvolvido em parceria com entidades de
@@ -183,8 +183,8 @@ export default async function Home() {
             </h2>
             <p>
               Já sabe o que procura ou ainda está a descobrir? Partilhe as suas
-              preferências com a Carla. Podemos procurar opções também através
-              de imobiliárias parceiras.
+              preferências connosco. Podemos procurar opções também através de
+              imobiliárias parceiras.
             </p>
             <div className="contact-socials">
               <a
@@ -214,7 +214,7 @@ export default async function Home() {
           <a href="/termos">Termos</a>
           <a href="/gestao">Área de gestão</a>
         </div>
-        <small>© {new Date().getFullYear()} Procuracasa. Carla Morais.</small>
+        <small>© {new Date().getFullYear()} Procuracasa.</small>
       </footer>
     </>
   );

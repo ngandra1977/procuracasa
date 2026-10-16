@@ -62,7 +62,7 @@ export default async function PropertyPage({
                 ? "Vamos marcar uma visita?"
                 : "Procura algo semelhante?"}
             </h2>
-            <p>Envie o pedido à Carla Morais.</p>
+            <p>Envie-nos o seu pedido.</p>
             <Contact
               initial={`Gostaria de saber mais sobre ${p.title} (referência ${p.reference || p.id}).`}
             />

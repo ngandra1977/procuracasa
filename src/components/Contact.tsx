@@ -24,7 +24,7 @@ export default function Contact({ initial = "" }: { initial?: string }) {
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error);
-      setState("Pedido enviado. A Carla entrará em contacto consigo.");
+      setState("Pedido enviado. Entraremos em contacto consigo.");
       form.reset();
     } catch (error) {
       setState(

@@ -1,4 +1,4 @@
-# Procuracasa · Carla Morais
+# Procuracasa
 
 Remodelação em Next.js para o alojamento existente na Vercel. Identidade marfim/terracota, logótipo vetorial, catálogo com filtros, páginas individuais, formulário de procura e gestão protegida em `/gestao`. Não inclui imóveis fictícios: sem conteúdo carregado, apresenta uma carteira vazia e o convite à procura personalizada.
 
@@ -27,7 +27,7 @@ Mantém-se o destino Formspree existente (`xeelaaew`), agora através de uma rot
 ## Antes de publicar
 
 - Carregar imóveis autorizados e confirmar preços, áreas, disponibilidade, entidade e AMI.
-- Confirmar a apresentação da Carla e o destino do formulário.
+- Confirmar a apresentação da marca e o destino do formulário.
 - Completar a identificação do responsável pelo tratamento e rever privacidade/termos com os parceiros. Os textos foram adaptados ao novo formulário e incluem os pontos de identificação ainda por completar.
 - Substituir, se desejado, as fotografias de ambiente Unsplash incluídas em `public/images` por imagens próprias; a imagem inicial está identificada como ambiente e não é anúncio.
 - O SVG `public/brand.svg` é uma proposta vetorial de símbolo arquitetónico. O nome Procuracasa mantém-se; a disponibilidade de TERRACOTA não foi verificada.

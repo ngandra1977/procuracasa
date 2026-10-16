@@ -1,7 +1,11 @@
-import { rateLimited } from '@/lib/rate-limit';
+import { rateLimited } from "@/lib/rate-limit";
 import { NextResponse } from "next/server";
 export async function POST(request: Request) {
-  if (rateLimited(request, 'contact', 6)) return NextResponse.json({ error: 'Demasiadas tentativas. Aguarde 15 minutos e tente novamente.' }, { status: 429, headers: { 'Retry-After': '900' } });
+  if (rateLimited(request, "contact", 6))
+    return NextResponse.json(
+      { error: "Demasiadas tentativas. Aguarde 15 minutos e tente novamente." },
+      { status: 429, headers: { "Retry-After": "900" } },
+    );
   try {
     if (request.headers.get("origin") !== new URL(request.url).origin)
       return new Response(null, { status: 403 });
@@ -30,7 +34,7 @@ export async function POST(request: Request) {
         name: input.name.slice(0, 200),
         email: input.email.slice(0, 254),
         message: input.message,
-        subject: "Pedido Procuracasa — Carla Morais",
+        subject: "Pedido Procuracasa",
       }),
     });
     if (!response.ok) throw new Error();
