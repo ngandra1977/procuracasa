@@ -887,3 +887,8 @@ select {
 .footer > div {
   flex-wrap: wrap;
 }
+
+.location-field {
+  display: grid;
+  gap: 14px;
+}

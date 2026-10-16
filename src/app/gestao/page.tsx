@@ -11,7 +11,7 @@ import {
 const blank: Property = {
   id: "",
   title: "",
-  location: "Vila do Conde",
+  location: "",
   price: 0,
   property_type: "Apartamento",
   bedrooms: 2,
@@ -111,7 +111,7 @@ export default function Management() {
     } catch (e) {
       setMessage(e instanceof Error ? e.message : "Falha no carregamento.");
     } finally {
-      setEdit({ ...edit, photos });
+      setEdit((current) => (current ? { ...current, photos } : null));
       setBusy(false);
     }
   }
@@ -132,7 +132,7 @@ export default function Management() {
     }
   }
   function field(key: keyof Property, value: string | number) {
-    if (edit) setEdit({ ...edit, [key]: value });
+    setEdit((current) => (current ? { ...current, [key]: value } : null));
   }
   return (
     <>
@@ -219,22 +219,42 @@ export default function Management() {
                   </select>
                 </label>
                 <div className="form-pair">
-                  <label>
-                    Localização
-                    <input
-                      required
-                      list="property-zones"
-                      maxLength={200}
-                      value={edit.location}
-                      onChange={(e) => field("location", e.target.value)}
-                      placeholder="Escolha ou escreva uma zona"
-                    />
-                    <datalist id="property-zones">
-                      {locations.map((l) => (
-                        <option key={l} value={l} />
-                      ))}
-                    </datalist>
-                  </label>
+                  <div className="location-field">
+                    <label>
+                      Zona sugerida (opcional)
+                      <select
+                        value={
+                          locations.includes(edit.location) ? edit.location : ""
+                        }
+                        onChange={(e) => {
+                          if (e.target.value) field("location", e.target.value);
+                        }}
+                      >
+                        <option value="">Escolher uma zona sugerida</option>
+                        {locations.map((zone) => (
+                          <option key={zone} value={zone}>
+                            {zone}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <label>
+                      Localização do imóvel
+                      <input
+                        type="text"
+                        required
+                        maxLength={200}
+                        value={edit.location}
+                        onChange={(e) => field("location", e.target.value)}
+                        placeholder="Ex.: Gaia, Maia, Braga…"
+                        aria-describedby="property-location-help"
+                      />
+                      <small id="property-location-help">
+                        Pode escrever qualquer localidade, incluindo fora das
+                        zonas sugeridas.
+                      </small>
+                    </label>
+                  </div>
                   <label>
                     Finalidade
                     <select
