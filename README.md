@@ -13,7 +13,7 @@ Remodelação em Next.js para o alojamento existente na Vercel. Identidade marfi
 Criar um projeto Supabase e executar `supabase/setup.sql` no editor SQL. Configurar na Vercel (e localmente):
 
 - `SUPABASE_URL`: URL do projeto.
-- `SUPABASE_SERVICE_ROLE_KEY`: chave de servidor; nunca expor ao browser.
+- `SUPABASE_SECRET_KEY`: chave secreta de servidor (`sb_secret_...`); nunca expor ao browser. O nome legado `SUPABASE_SERVICE_ROLE_KEY` continua aceite por compatibilidade.
 - `ADMIN_PASSWORD`: palavra-passe única com pelo menos 16 caracteres.
 
 A base de dados não permite acesso anónimo. As imagens são públicas; só o servidor autenticado pode carregar. A sessão de gestão dura oito horas e usa cookie HttpOnly, SameSite Strict e Secure em produção. O carregamento valida o formato e assinatura do ficheiro, limitado a 3 MB para ficar dentro do limite de pedidos da Vercel. Não há contas individuais ou recuperação de palavra-passe; alterar ADMIN_PASSWORD invalida as sessões. Existe limitação de tentativas por IP e por instância (não distribuída). Antes de exposição pública, complementar a limitação de tentativas para `/api/admin/login` no firewall da Vercel e verificar as condições/custos atuais dos serviços.

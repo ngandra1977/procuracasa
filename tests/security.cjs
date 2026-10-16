@@ -45,5 +45,35 @@ function load(relative) {
   assert.equal(rate.rateLimited(r, 'test', 2), true);
   const contact = load('src/app/api/contact/route.ts');
   assert.equal((await contact.POST(new Request('https://example.test/api/contact', { method: 'POST', headers: {origin:'https://example.test'}, body: JSON.stringify({name:'Teste', email:'invalid', consent:true, message:''}) }))).status, 400);
-  console.log('OK: sessões, adulteração, expiração, revogação, acesso privado, publicação, origem, limite de tentativas e validação de contacto.');
+  const originalFetch = global.fetch;
+  const originalURL = process.env.SUPABASE_URL;
+  const originalSecret = process.env.SUPABASE_SECRET_KEY;
+  const originalLegacy = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  try {
+    process.env.SUPABASE_URL = 'https://example.supabase.co';
+    process.env.SUPABASE_SECRET_KEY = 'sb_secret_test_only';
+    const database = load('src/lib/server.ts').database;
+    global.fetch = async (url, options) => {
+      const headers = new Headers(options.headers);
+      assert.equal(headers.get('apikey'), 'sb_secret_test_only');
+      assert.equal(headers.has('Authorization'), false, 'Uma chave opaca não é um JWT');
+      assert.equal(headers.get('Content-Type'), 'image/jpeg', 'Preservar o formato das fotografias');
+      return new Response('{}');
+    };
+    await database('/storage/v1/object/property-images/test', { headers: { 'Content-Type': 'image/jpeg' } });
+    delete process.env.SUPABASE_SECRET_KEY;
+    process.env.SUPABASE_SERVICE_ROLE_KEY = 'legacy-test-only';
+    global.fetch = async (url, options) => {
+      const headers = new Headers(options.headers);
+      assert.equal(headers.get('Authorization'), 'Bearer legacy-test-only');
+      return new Response('{}');
+    };
+    await database('/rest/v1/properties');
+  } finally {
+    global.fetch = originalFetch;
+    for (const [name, value] of [['SUPABASE_URL', originalURL], ['SUPABASE_SECRET_KEY', originalSecret], ['SUPABASE_SERVICE_ROLE_KEY', originalLegacy]]) {
+      if (value === undefined) delete process.env[name]; else process.env[name] = value;
+    }
+  }
+  console.log('OK: sessões, controlo de acesso, publicação, origem, limite de tentativas, contacto e chaves Supabase modernas/legadas.');
 })().catch(error => { console.error(error); process.exitCode = 1; });

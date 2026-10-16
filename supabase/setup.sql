@@ -16,7 +16,10 @@ create table if not exists public.properties (
  energy text not null default ''
 );
 alter table public.properties enable row level security;
--- Sem políticas de acesso anónimo: apenas o servidor usa a service_role.
+-- Apenas o servidor pode ler/escrever; os clientes não acedem à tabela.
+revoke all on table public.properties from anon, authenticated;
+grant select, insert, update, delete on table public.properties to service_role;
+create index if not exists properties_created_at_idx on public.properties (created_at desc);
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values ('property-images', 'property-images', true, 3145728, array['image/jpeg','image/png','image/webp'])
 on conflict (id) do nothing;
