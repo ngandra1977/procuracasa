@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Procuracasa | Imóveis no Grande Porto",
   description:
     "Imóveis e acompanhamento próximo, com especial atenção ao Grande Porto e litoral. Procura noutra zona? Partilhe as suas preferências.",
+  verification: { google: "rAXSc2K0UvErYuTEeUTXVjvlVQR88qVfy5t7MzMMCx0" },
   icons: { icon: "/brand.svg" },
   openGraph: {
     title: "Procuracasa",
