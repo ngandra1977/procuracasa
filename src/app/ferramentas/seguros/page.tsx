@@ -5,10 +5,10 @@ export const metadata: Metadata = {
   title: "Seguros na compra de casa: obrigações e custos | Procuracasa",
   description: "Saiba distinguir seguro de incêndio, multirriscos e vida no crédito à habitação. Calcule o custo mensal e anual com os valores das suas propostas.",
   alternates: { canonical: "https://www.procuracasa.pt/ferramentas/seguros" },
-  openGraph: { title: "Seguros na compra de casa | Procuracasa", description: "Obrigações, coberturas e calculadora de custos de seguros.", url: "https://www.procuracasa.pt/ferramentas/seguros", locale: "pt_PT", type: "website" },
+  openGraph: { title: "Seguros na compra de casa | Procuracasa", description: "Obrigações, coberturas e orçamento mensal e anual de seguros.", url: "https://www.procuracasa.pt/ferramentas/seguros", locale: "pt_PT", type: "website" },
 };
 export default function Page() {
-  return <ToolShell eyebrow="GUIA E CALCULADORA · SEGUROS" title="Seguros da casa, com mais clareza."
+  return <ToolShell eyebrow="GUIA E ORÇAMENTO · SEGUROS" title="Seguros da casa, com mais clareza."
     intro="Perceba o que é obrigatório por lei, o que pode ser exigido pelo banco e como organizar os custos das suas propostas."
     reviewedDate="19 de outubro de 2026"
     sources={[

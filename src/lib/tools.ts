@@ -38,8 +38,8 @@ export const toolPages = [
   {
     slug: "seguros",
     number: "05",
-    kind: "GUIA E CALCULADORA",
-    title: "Seguros na compra de casa.",
+    kind: "GUIA E ORÇAMENTO",
+    title: "Guia e orçamento de seguros.",
     description: "Distinga incêndio, multirriscos e vida e organize os custos mensais e anuais das suas propostas.",
     action: "Conhecer seguros e custos",
   },
