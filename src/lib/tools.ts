@@ -12,7 +12,7 @@ export const toolPages = [
     slug: "prestacao-credito",
     number: "02",
     kind: "SIMULADOR",
-    title: "Uma prestação à sua medida.",
+    title: "Simulador de crédito à habitação.",
     description:
       "Explore o efeito do montante, do prazo e da taxa de juro na prestação mensal.",
     action: "Simular prestação",
@@ -21,7 +21,7 @@ export const toolPages = [
     slug: "documentos",
     number: "03",
     kind: "GUIA PRÁTICO",
-    title: "Os documentos, por ordem.",
+    title: "Documentos para comprar ou vender casa.",
     description:
       "Uma checklist para preparar a compra ou a venda e organizar os próximos passos.",
     action: "Preparar documentos",
@@ -30,7 +30,7 @@ export const toolPages = [
     slug: "checklist-visita",
     number: "04",
     kind: "CHECKLIST",
-    title: "Visitar com outro olhar.",
+    title: "Checklist para visitar um imóvel.",
     description:
       "Leve consigo as perguntas certas sobre o imóvel, o edifício e a envolvente.",
     action: "Preparar a visita",

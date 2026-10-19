@@ -1,6 +1,7 @@
 import Brand from "@/components/Brand";
 import DirectContacts from "@/components/DirectContacts";
 import { REVIEWED_DATE } from "@/lib/calculators";
+import { toolPages } from "@/lib/tools";
 import type { ReactNode } from "react";
 export default function ToolShell({
   eyebrow,
@@ -37,6 +38,10 @@ export default function ToolShell({
           <p>{intro}</p>
         </div>
         {children}
+        <section className="tool-explanation">
+          <h2>Continue a preparar a compra ou a venda.</h2>
+          <ul>{toolPages.map((tool) => <li key={tool.slug}><a href={`/ferramentas/${tool.slug}`}>{tool.title}</a></li>)}</ul>
+        </section>
         {sources.length > 0 && (
           <aside className="tool-sources">
             <p className="eyebrow">FONTES E ATUALIZAÇÃO</p>

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Brand from "@/components/Brand";
 import Catalogue from "@/components/Catalogue";
 import Contact from "@/components/Contact";
@@ -5,6 +6,11 @@ import DirectContacts from "@/components/DirectContacts";
 import { toolPages } from "@/lib/tools";
 import { getProperties } from "@/lib/server";
 import { locations, Property } from "@/lib/properties";
+export const metadata: Metadata = {
+  title: "Casas e apartamentos no Grande Porto | Procuracasa",
+  description: "Conheça os imóveis da Procuracasa no Grande Porto, com especial atenção a Vila do Conde, Matosinhos e Leça da Palmeira. Consulte também outras zonas e ferramentas para comprar casa.",
+  alternates: { canonical: "https://www.procuracasa.pt/" },
+};
 export const dynamic = "force-dynamic";
 export default async function Home() {
   let properties: Property[] = [];

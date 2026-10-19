@@ -1,3 +1,6 @@
+import type { Metadata } from "next";
+import { cache } from "react";
+import { propertySeo, jsonLd, SITE_URL } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import Brand from "@/components/Brand";
 import Contact from "@/components/Contact";
@@ -5,13 +8,28 @@ import DirectContacts from "@/components/DirectContacts";
 import { getProperties } from "@/lib/server";
 import { price, isResidential } from "@/lib/properties";
 export const dynamic = "force-dynamic";
+const findProperty = cache(async (id: string) =>
+  (await getProperties()).find((p) => p.id === id),
+);
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const p = await findProperty((await params).id);
+  if (!p) return { title: "Imóvel não encontrado | Procuracasa", robots: { index: false, follow: true } };
+  const seo = propertySeo(p);
+  const images = p.photos[0] ? [{ url: p.photos[0], alt: p.title }] : [];
+  return {
+    title: seo.title, description: seo.description,
+    alternates: { canonical: seo.url },
+    openGraph: { title: seo.title, description: seo.description, url: seo.url, type: "website", locale: "pt_PT", images },
+    twitter: { card: images.length ? "summary_large_image" : "summary", title: seo.title, description: seo.description, images: p.photos.slice(0, 1) },
+  };
+}
 export default async function PropertyPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const p = (await getProperties()).find((p) => p.id === id);
+  const p = await findProperty(id);
   if (!p) notFound();
   return (
     <>
@@ -21,6 +39,13 @@ export default async function PropertyPage({
           ← Todos os imóveis
         </a>
       </header>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd({
+        "@context": "https://schema.org", "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Procuracasa", item: SITE_URL + "/" },
+          { "@type": "ListItem", position: 2, name: p.title, item: propertySeo(p).url },
+        ],
+      }) }} />
       <main className="detail section">
         <p className="eyebrow">
           {p.location} · {p.operation} ·{" "}
@@ -37,7 +62,7 @@ export default async function PropertyPage({
             <a href={photo} target="_blank" rel="noreferrer" key={photo}>
               <img
                 src={photo}
-                alt={`${p.title} — fotografia ${i + 1}`}
+                alt={`${p.title} em ${p.location} — fotografia ${i + 1}`}
                 loading={i ? "lazy" : "eager"}
               />
             </a>
@@ -55,6 +80,18 @@ export default async function PropertyPage({
             </div>
             <h2>Um espaço para conhecer.</h2>
             <p className="description">{p.description}</p>
+            <section className="tool-explanation">
+              <h2>Prepare o próximo passo.</h2>
+              <p>Antes de decidir, organize as perguntas para a visita e os documentos necessários.</p>
+              <ul>
+                <li><a href="/ferramentas/checklist-visita">Checklist para visitar um imóvel</a></li>
+                <li><a href="/ferramentas/documentos">Documentos para comprar ou vender casa</a></li>
+                {p.operation === "Venda" && <>
+                  <li><a href="/ferramentas/custos-compra">Calcular a entrada, o IMT e os custos da compra</a></li>
+                  <li><a href="/ferramentas/prestacao-credito">Simular a prestação do crédito à habitação</a></li>
+                </>}
+              </ul>
+            </section>
             <p>Referência: {p.reference || p.id.slice(0, 8)}</p>
             <p>
               Mediação: {p.agency} · AMI {p.ami}
