@@ -1,0 +1,12 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),ts=require('typescript');
+const mod={exports:{}};
+new Function('module','exports',ts.transpileModule(fs.readFileSync('src/lib/insurance.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText)(mod,mod.exports);
+const {insuranceBudget}=mod.exports;
+assert.deepEqual(insuranceBudget([{amount:25,period:'monthly'},{amount:180,period:'annual'}],700),{annual:480,monthly:40,monthlyWithMortgage:740});
+assert.deepEqual(insuranceBudget([],0),{annual:0,monthly:0,monthlyWithMortgage:0});
+assert.deepEqual(insuranceBudget([{amount:120,period:'annual'}],0),insuranceBudget([{amount:10,period:'monthly'}],0));
+assert.throws(()=>insuranceBudget([{amount:-1,period:'annual'}],0));
+assert.throws(()=>insuranceBudget([{amount:NaN,period:'monthly'}],0));
+assert.throws(()=>insuranceBudget([{amount:10,period:'weekly'}],0));
+assert.throws(()=>insuranceBudget([],-1));
+console.log('OK: seguros mensais/anuais, prestação opcional, zero e valores inválidos.');

@@ -35,4 +35,12 @@ export const toolPages = [
       "Leve consigo as perguntas certas sobre o imóvel, o edifício e a envolvente.",
     action: "Preparar a visita",
   },
+  {
+    slug: "seguros",
+    number: "05",
+    kind: "GUIA E CALCULADORA",
+    title: "Seguros na compra de casa.",
+    description: "Distinga incêndio, multirriscos e vida e organize os custos mensais e anuais das suas propostas.",
+    action: "Conhecer seguros e custos",
+  },
 ];

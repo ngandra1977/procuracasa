@@ -85,6 +85,7 @@ export default async function PropertyPage({
               <p>Antes de decidir, organize as perguntas para a visita e os documentos necessários.</p>
               <ul>
                 <li><a href="/ferramentas/checklist-visita">Checklist para visitar um imóvel</a></li>
+                <li><a href="/ferramentas/seguros">Seguros da casa: obrigações e custos</a></li>
                 <li><a href="/ferramentas/documentos">Documentos para comprar ou vender casa</a></li>
                 {p.operation === "Venda" && <>
                   <li><a href="/ferramentas/custos-compra">Calcular a entrada, o IMT e os custos da compra</a></li>

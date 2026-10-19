@@ -9,12 +9,14 @@ export default function ToolShell({
   intro,
   children,
   sources = [],
+  reviewedDate = REVIEWED_DATE,
 }: {
   eyebrow: string;
   title: string;
   intro: string;
   children: ReactNode;
   sources?: { title: string; href: string }[];
+  reviewedDate?: string;
 }) {
   return (
     <>
@@ -46,7 +48,7 @@ export default function ToolShell({
           <aside className="tool-sources">
             <p className="eyebrow">FONTES E ATUALIZAÇÃO</p>
             <p>
-              Informação verificada em {REVIEWED_DATE}. Confirme alterações
+              Informação verificada em {reviewedDate}. Confirme alterações
               posteriores nas fontes oficiais.
             </p>
             <ul>

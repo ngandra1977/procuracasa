@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node tests/security.cjs && node tests/calculators.cjs && node tests/seo.cjs"
+    "test": "node tests/security.cjs && node tests/calculators.cjs && node tests/seo.cjs && node tests/insurance.cjs"
   },
   "dependencies": {
     "next": "^16.4.2",
