@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { money, mortgage, monthlyIncome, effortLevel } from "@/lib/calculators";
+import { money, mortgage, monthlyIncome, effortLevel, ageAtLoanEnd } from "@/lib/calculators";
 export default function MortgageCalculator() {
   const [principal, setPrincipal] = useState("200000"),
     [rate, setRate] = useState("3.5"),
@@ -10,11 +10,14 @@ export default function MortgageCalculator() {
     [period, setPeriod] = useState<"monthly" | "annual">("monthly"),
     [payments, setPayments] = useState("12"),
     [years, setYears] = useState("30"),
+    [age, setAge] = useState(""),
+    [finalAgeLimit, setFinalAgeLimit] = useState("75"),
     [extras, setExtras] = useState("0"),
     [income, setIncome] = useState(""),
     [debts, setDebts] = useState("0");
   const tan = rateType === "fixed" ? Number(rate) : Number(euribor) + Number(spread);
   let normalizedIncome = 0;
+  let ageResult: ReturnType<typeof ageAtLoanEnd> | null = null;
   let result: ReturnType<typeof mortgage> | null = null,
     error = "";
   try {
@@ -22,6 +25,10 @@ export default function MortgageCalculator() {
       throw new Error("Preencha um capital positivo, a TAN e o prazo.");
     normalizedIncome = monthlyIncome(Number(income), period, Number(payments));
     if (rateType !== "fixed" && (!Number.isFinite(Number(euribor)) || Number(euribor) < -10 || Number(spread) < 0)) throw new Error("Verifique a Euribor e o spread.");
+    if (age !== "") {
+      if (finalAgeLimit === "") throw new Error("Indique o limite de idade no final do contrato.");
+      ageResult = ageAtLoanEnd(Number(age), Number(years), Number(finalAgeLimit));
+    }
     result = mortgage(
       Number(principal),
       tan,
@@ -98,7 +105,17 @@ export default function MortgageCalculator() {
                 value={years}
                 onChange={(e) => setYears(e.target.value)}
               />
-              <small>De 1 a 40 anos de duração, não de idade. A idade no final do contrato tem um limite próprio, definido pelo banco. Por exemplo, com 50 anos e limite final de 75 anos, o prazo seria no máximo 25 anos, sujeito às restantes condições.</small>
+              <small>De 1 a 40 anos de duração. O prazo disponível depende também da idade e das condições do banco.</small>
+            </label>
+          </div>
+          <div className="form-pair">
+            <label>Idade do titular mais velho do crédito (anos)
+              <input type="number" min="18" max="100" step="1" value={age} onChange={(e) => setAge(e.target.value)} placeholder="Opcional" />
+              <small>Num casal, indique o titular mais velho como referência. O critério concreto depende da instituição.</small>
+            </label>
+            <label>Limite de idade no final do contrato (anos)
+              <input type="number" min="18" max="100" step="1" value={finalAgeLimit} onChange={(e) => setFinalAgeLimit(e.target.value)} />
+              <small>75 anos é apenas uma referência editável. Se a sua proposta indicar 73 ou outro limite, altere este valor. Confirme com o banco e a seguradora.</small>
             </label>
           </div>
           <label>
@@ -162,6 +179,17 @@ export default function MortgageCalculator() {
             <>
               <p className="eyebrow">PRESTAÇÃO MENSAL · CAPITAL + JUROS</p>
               <p className="result-total">{money(result.payment)}</p>
+              {ageResult && <div className="stress-result">
+                <p className="eyebrow">IDADE NO FINAL DO PRAZO</p>
+                <strong>{ageResult.finalAge} anos</strong>
+                <p>{ageResult.exceeds
+                  ? `Ultrapassa a referência escolhida de ${finalAgeLimit} anos.`
+                  : `Não ultrapassa a referência escolhida de ${finalAgeLimit} anos.`}</p>
+                {ageResult.exceeds && <p>{ageResult.yearsWithinAgeLimit > 0
+                  ? `Para respeitar apenas esse limite de idade, experimente um prazo até ${ageResult.yearsWithinAgeLimit} anos.`
+                  : "Não existe um prazo positivo dentro da referência de idade escolhida."}</p>}
+                <p>Comparação indicativa. Os limites de duração por idade, as regras para vários titulares, o seguro e a análise do banco podem reduzir o prazo. Não confirma elegibilidade nem aprovação. O prazo da simulação não foi alterado automaticamente.</p>
+              </div>}
               <dl>
                 <div>
                   <dt>Com os encargos mensais indicados</dt>

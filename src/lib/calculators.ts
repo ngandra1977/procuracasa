@@ -137,3 +137,16 @@ export function effortLevel(effort: number) {
   if (!finiteNonnegative(effort)) throw new Error("Esforço inválido.");
   return effort <= 30 ? "Menor peso no orçamento" : effort <= 35 ? "Atenção à margem disponível" : "Peso elevado no orçamento";
 }
+
+/** Comparação indicativa com o limite de idade escolhido, não decisão bancária. */
+export function ageAtLoanEnd(age: number, years: number, finalAgeLimit: number) {
+  if (!Number.isInteger(age) || age < 18 || age > 100 ||
+      !Number.isInteger(finalAgeLimit) || finalAgeLimit < 18 || finalAgeLimit > 100 ||
+      !Number.isInteger(years) || years < 1 || years > 40)
+    throw new Error("Indique idades inteiras entre 18 e 100 anos e um prazo de 1 a 40 anos.");
+  return {
+    finalAge: age + years,
+    exceeds: age + years > finalAgeLimit,
+    yearsWithinAgeLimit: Math.max(0, Math.min(40, finalAgeLimit - age)),
+  };
+}
