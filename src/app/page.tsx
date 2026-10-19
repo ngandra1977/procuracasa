@@ -86,7 +86,7 @@ export default async function Home() {
             <div>
               <p className="eyebrow">ENCONTRE O SEU PRÓXIMO CAPÍTULO</p>
               <h2>
-                Casas com lugar
+                Casas com lugar{" "}
                 <br />
                 na sua vida.
               </h2>

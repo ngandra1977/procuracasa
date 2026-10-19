@@ -127,3 +127,13 @@ export function mortgage(
         : null,
   };
 }
+
+export function monthlyIncome(value: number, period: "monthly" | "annual", payments = 12) {
+  if (!finiteNonnegative(value) || ![12, 14].includes(payments) || !["monthly", "annual"].includes(period))
+    throw new Error("Verifique o rendimento líquido e a periodicidade.");
+  return period === "annual" ? value / 12 : value * payments / 12;
+}
+export function effortLevel(effort: number) {
+  if (!finiteNonnegative(effort)) throw new Error("Esforço inválido.");
+  return effort <= 30 ? "Menor peso no orçamento" : effort <= 35 ? "Atenção à margem disponível" : "Peso elevado no orçamento";
+}

@@ -1,24 +1,33 @@
 "use client";
 import { useState } from "react";
-import { money, mortgage } from "@/lib/calculators";
+import { money, mortgage, monthlyIncome, effortLevel } from "@/lib/calculators";
 export default function MortgageCalculator() {
   const [principal, setPrincipal] = useState("200000"),
     [rate, setRate] = useState("3.5"),
+    [rateType, setRateType] = useState("fixed"),
+    [euribor, setEuribor] = useState(""),
+    [spread, setSpread] = useState(""),
+    [period, setPeriod] = useState<"monthly" | "annual">("monthly"),
+    [payments, setPayments] = useState("12"),
     [years, setYears] = useState("30"),
     [extras, setExtras] = useState("0"),
     [income, setIncome] = useState(""),
     [debts, setDebts] = useState("0");
+  const tan = rateType === "fixed" ? Number(rate) : Number(euribor) + Number(spread);
+  let normalizedIncome = 0;
   let result: ReturnType<typeof mortgage> | null = null,
     error = "";
   try {
-    if (!principal || !rate || !years || Number(principal) <= 0)
+    if (!principal || !years || Number(principal) <= 0 || (rateType === "fixed" ? rate === "" : euribor === "" || spread === ""))
       throw new Error("Preencha um capital positivo, a TAN e o prazo.");
+    normalizedIncome = monthlyIncome(Number(income), period, Number(payments));
+    if (rateType !== "fixed" && (!Number.isFinite(Number(euribor)) || Number(euribor) < -10 || Number(spread) < 0)) throw new Error("Verifique a Euribor e o spread.");
     result = mortgage(
       Number(principal),
-      Number(rate),
+      tan,
       Number(years),
       Number(extras),
-      Number(income),
+      normalizedIncome,
       Number(debts),
     );
   } catch (e) {
@@ -30,7 +39,7 @@ export default function MortgageCalculator() {
         <strong>Uma hipótese de financiamento, sem compromisso.</strong>
         <p>
           Prestações mensais constantes de capital e juros, com TAN constante
-          durante todo o prazo. A taxa inicial é um exemplo editável, não uma
+          durante todo o prazo. Na taxa variável, mantém-se a TAN indicada apenas para esta simulação, sem prever futuras revisões. A taxa fixa inicial é um exemplo editável, não uma
           oferta ou taxa de mercado. Não simula taxa mista, carência ou
           diferimento.
         </p>
@@ -47,15 +56,31 @@ export default function MortgageCalculator() {
               onChange={(e) => setPrincipal(e.target.value)}
             />
           </label>
+          <label>Tipo de taxa
+            <select value={rateType} onChange={(e) => setRateType(e.target.value)}>
+              <option value="fixed">Taxa fixa — TAN da proposta</option>
+              <option value="3">Taxa variável — Euribor a 3 meses</option>
+              <option value="6">Taxa variável — Euribor a 6 meses</option>
+              <option value="12">Taxa variável — Euribor a 12 meses</option>
+            </select>
+          </label>
+          {rateType !== "fixed" && <>
+            <div className="form-pair">
+              <label>Euribor a {rateType} meses (%)<input type="number" min="-10" max="98" step="0.001" value={euribor} onChange={(e) => setEuribor(e.target.value)} /></label>
+              <label>Spread (%)<input type="number" min="0" max="50" step="0.01" value={spread} onChange={(e) => setSpread(e.target.value)} /></label>
+            </div>
+            <p className="local-note">Introduza a média mensal aplicável ao contrato, normalmente do mês anterior. Atualização manual: não são cotações em tempo real. Consulte a proposta e o <a href="https://clientebancario.bportugal.pt/pt-pt/taxas-de-juro-no-credito-habitacao" target="_blank" rel="noreferrer">Banco de Portugal</a>. TAN calculada: {Number.isFinite(tan) ? tan.toFixed(3).replace(".", ",") : "—"}%.</p>
+          </>}
           <div className="form-pair">
             <label>
-              TAN anual (%)
+              {rateType === "fixed" ? "TAN fixa anual (%)" : "TAN calculada anual (%)"}
               <input
                 type="number"
                 min="0"
                 max="98"
                 step="0.1"
-                value={rate}
+                value={rateType === "fixed" ? rate : String(tan)}
+                disabled={rateType !== "fixed"}
                 onChange={(e) => setRate(e.target.value)}
               />
               <small>
@@ -90,8 +115,17 @@ export default function MortgageCalculator() {
             </small>
           </label>
           <div className="form-pair">
+            <label>Como pretende indicar o rendimento?
+              <select value={period} onChange={(e) => setPeriod(e.target.value as "monthly" | "annual")}><option value="monthly">Mensal líquido</option><option value="annual">Anual líquido</option></select>
+            </label>
+            {period === "monthly" && <label>Pagamentos por ano
+              <select value={payments} onChange={(e) => setPayments(e.target.value)}><option value="12">12 — inclui duodécimos ou média mensal</option><option value="14">14 — subsídios recebidos à parte</option></select>
+              <small>Com 14 pagamentos, indique o valor mensal sem subsídios. Se os valores variarem, prefira o total anual.</small>
+            </label>}
+          </div>
+          <div className="form-pair">
             <label>
-              Rendimento líquido mensal (€) <small>Opcional, do agregado</small>
+              Rendimento líquido {period === "annual" ? "anual" : "mensal"} (€) <small>Opcional, total do agregado após impostos e Segurança Social. No anual, inclua subsídios.</small>
               <input
                 type="number"
                 min="0"
@@ -143,12 +177,20 @@ export default function MortgageCalculator() {
                 {result.effort !== null && (
                   <div>
                     <dt>
-                      Esforço mensal simples, com encargos e outros créditos
+                      Peso mensal no orçamento, incluindo seguros e outros créditos
                     </dt>
                     <dd>{result.effort.toFixed(1).replace(".", ",")}%</dd>
                   </div>
                 )}
               </dl>
+              {result.effort !== null && <div className="stress-result">
+                <p className="eyebrow">ORIENTAÇÃO PARA O SEU ORÇAMENTO</p>
+                <strong>{effortLevel(result.effort)}</strong>
+                <p>Rendimento mensal médio: {money(normalizedIncome)}. {period === "annual" ? "Total anual dividido por 12." : `${payments} pagamentos distribuídos por 12 meses.`}</p>
+                <p>Até 30%: menor peso · acima de 30% até 35%: atenção à margem · acima de 35%: peso elevado.</p>
+                <p>{result.effort <= 35 ? "Dentro da referência de orientação de 35%." : "Acima da referência de orientação de 35%."} Estes níveis são orientativos, não são limites oficiais nem uma aprovação de crédito.</p>
+                <p>Prestações de créditos / rendimento, sem seguros: {((result.payment + Number(debts)) / normalizedIncome * 100).toFixed(1).replace(".", ",")}%. O DSTI bancário considera também ajustamentos aos juros e rendimentos. Confirme os limites aplicáveis e eventuais exceções com o banco.</p>
+              </div>}
               <div
                 className="loan-bar"
                 role="img"
@@ -166,11 +208,11 @@ export default function MortgageCalculator() {
               </p>
               <div className="stress-result">
                 <p className="eyebrow">
-                  E SE A TAN SUBISSE 2 PONTOS PERCENTUAIS?
+                  CENÁRIO ALTERNATIVO: TAN + 2 PONTOS
                 </p>
                 <strong>{money(result.stressedPayment)} / mês</strong>
                 <p>
-                  Mais {money(result.stressedPayment - result.payment)} de
+                  Não prevê uma alteração da taxa fixa contratada. Mais {money(result.stressedPayment - result.payment)} de
                   capital e juros, aplicando essa taxa ao mesmo capital e prazo
                   desde o início.
                 </p>

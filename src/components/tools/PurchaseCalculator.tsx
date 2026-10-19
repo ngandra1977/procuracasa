@@ -9,23 +9,25 @@ import {
 export default function PurchaseCalculator() {
   const [price, setPrice] = useState("250000"),
     [vpt, setVpt] = useState("0"),
-    [loan, setLoan] = useState("225000"),
+    [financed, setFinanced] = useState(true),
+    [entry, setEntry] = useState("25000"),
     [years, setYears] = useState("30"),
     [purpose, setPurpose] = useState<PurchasePurpose>("permanent"),
     [registration, setRegistration] = useState(""),
     [other, setOther] = useState("0");
+  const loan = financed ? Number(price) - Number(entry) : 0;
   const registrationValue =
     registration === "" ? (Number(loan) > 0 ? 700 : 375) : Number(registration);
   let result: ReturnType<typeof purchaseCosts> | null = null,
     error = "";
   try {
-    if (!price || !years || loan === "")
-      throw new Error("Preencha o preço, o montante do crédito e o prazo.");
+    if (!price || (financed && (!years || entry === "")))
+      throw new Error("Preencha o preço, a entrada e o prazo.");
     result = purchaseCosts({
       price: Number(price),
       vpt: Number(vpt),
       loan: Number(loan),
-      years: Number(years),
+      years: financed ? Number(years) : 30,
       purpose,
       registration: registrationValue,
       otherCosts: Number(other),
@@ -46,32 +48,9 @@ export default function PurchaseCalculator() {
       </div>
       <div className="calculator-layout">
         <div className="calculator-inputs">
-          <div className="form-pair">
-            <label>
-              Preço de compra (€)
-              <input
-                type="number"
-                min="1"
-                step="1000"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </label>
-            <label>
-              VPT (€), se superior
-              <input
-                type="number"
-                min="0"
-                step="1000"
-                value={vpt}
-                onChange={(e) => setVpt(e.target.value)}
-              />
-              <small>
-                Valor Patrimonial Tributário da caderneta predial. Para os
-                impostos usa-se o maior entre preço e VPT.
-              </small>
-            </label>
-          </div>
+          <label>Preço de compra (€)
+            <input type="number" min="1" step="1000" value={price} onChange={(e) => setPrice(e.target.value)} />
+          </label>
           <label>
             Finalidade / natureza do imóvel
             <select
@@ -88,32 +67,25 @@ export default function PurchaseCalculator() {
               <option value="rural">Prédio rústico</option>
             </select>
           </label>
-          <div className="form-pair">
-            <label>
-              Crédito previsto (€)
-              <input
-                type="number"
-                min="0"
-                max={price}
-                step="1000"
-                value={loan}
-                onChange={(e) => setLoan(e.target.value)}
-              />
-              <small>Use 0 se comprar sem financiamento.</small>
+          <label>Vai recorrer a crédito?
+            <select value={financed ? "yes" : "no"} onChange={(e) => setFinanced(e.target.value === "yes")}>
+              <option value="yes">Sim</option><option value="no">Não, compra sem financiamento</option>
+            </select>
+          </label>
+          {financed && <div className="form-pair">
+            <label>Entrada para a casa (€)
+              <input type="number" min="0" max={price} step="1000" value={entry} onChange={(e) => setEntry(e.target.value)} />
+              <small>Parte do preço paga com dinheiro seu, sem impostos ou despesas. Crédito calculado: {money(Math.max(0, loan))}. Não representa aprovação bancária.</small>
             </label>
-            <label>
-              Prazo do crédito (anos)
-              <input
-                type="number"
-                min="1"
-                max="40"
-                step="1"
-                value={years}
-                disabled={Number(loan) === 0}
-                onChange={(e) => setYears(e.target.value)}
-              />
+            <label>Prazo do crédito (anos)
+              <input type="number" min="1" max="40" step="1" value={years} onChange={(e) => setYears(e.target.value)} />
             </label>
-          </div>
+          </div>}
+          <details><summary>Mais opções: VPT e despesas adicionais</summary>
+          <label>Valor Patrimonial Tributário — VPT (€)
+            <input type="number" min="0" step="1000" value={vpt} onChange={(e) => setVpt(e.target.value)} />
+            <small>Da caderneta predial. Os impostos usam o maior entre preço e VPT. Deixe zero se não for superior ao preço.</small>
+          </label>
           <div className="form-pair">
             <label>
               Formalização e registos (€)
@@ -145,6 +117,7 @@ export default function PurchaseCalculator() {
               </small>
             </label>
           </div>
+          </details>
         </div>
         <section
           className="calculator-result"
@@ -154,12 +127,12 @@ export default function PurchaseCalculator() {
         >
           {result ? (
             <>
-              <p className="eyebrow">CAPITAIS PRÓPRIOS ESTIMADOS</p>
+              <p className="eyebrow">DINHEIRO NECESSÁRIO PARA COMPRAR</p>
               <p className="result-total">{money(result.cashNeeded)}</p>
               <p>Entrada + impostos + despesas indicadas.</p>
               <dl>
                 <div>
-                  <dt>Entrada (preço − crédito)</dt>
+                  <dt>Parte do preço paga por si</dt>
                   <dd>{money(result.downPayment)}</dd>
                 </div>
                 <div>
@@ -170,13 +143,13 @@ export default function PurchaseCalculator() {
                   <dt>Selo sobre a aquisição · 0,8%</dt>
                   <dd>{money(result.purchaseStamp)}</dd>
                 </div>
-                <div>
+                {loan > 0 && <div>
                   <dt>
                     Selo sobre o crédito ·{" "}
                     {Number(years) >= 5 ? "0,6%" : "0,5%"}
                   </dt>
                   <dd>{money(result.creditStamp)}</dd>
-                </div>
+                </div>}
                 <div>
                   <dt>Formalização e registos</dt>
                   <dd>{money(registrationValue)}</dd>
