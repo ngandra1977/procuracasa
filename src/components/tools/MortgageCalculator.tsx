@@ -89,7 +89,7 @@ export default function MortgageCalculator() {
               </small>
             </label>
             <label>
-              Prazo (anos)
+              Duração do empréstimo (anos)
               <input
                 type="number"
                 min="1"
@@ -98,6 +98,7 @@ export default function MortgageCalculator() {
                 value={years}
                 onChange={(e) => setYears(e.target.value)}
               />
+              <small>De 1 a 40 anos de duração, não de idade. A idade no final do contrato tem um limite próprio, definido pelo banco. Por exemplo, com 50 anos e limite final de 75 anos, o prazo seria no máximo 25 anos, sujeito às restantes condições.</small>
             </label>
           </div>
           <label>

@@ -17,6 +17,10 @@ export default function Page() {
       intro="Explore a relação entre capital, prazo e taxa de juro. Os resultados ajudam a preparar uma conversa informada com o banco."
       sources={[
         {
+          title: "CGD — duração do empréstimo e idade no final do contrato",
+          href: "https://www.cgd.pt/Particulares/Credito/Habitacao/Pages/Credito-habitacao-Regime-Geral.aspx",
+        },
+        {
           title: "Banco de Portugal — simulador de crédito à habitação",
           href: "https://clientebancario.bportugal.pt/pt-pt/credito-habitacao",
         },
