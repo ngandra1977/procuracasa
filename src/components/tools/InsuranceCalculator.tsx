@@ -16,17 +16,6 @@ export default function InsuranceCalculator() {
   return <section aria-labelledby="insurance-budget">
     <h2 id="insurance-budget">Quanto pesam os seguros no orçamento?</h2>
     <p>Use os valores de propostas ou apólices que já tem. Não calculamos prémios de mercado nem emitimos cotações. Campos vazios ficam excluídos; zero significa sem custo indicado.</p>
-    <aside className="tool-scope" aria-labelledby="insurance-example">
-      <h3 id="insurance-example">Exemplo hipotético: como fazer as contas</h3>
-      <p>Imagine, apenas para este exercício, um seguro de vida de <strong>25 € por mês</strong> e um multirriscos de <strong>180 € por ano</strong>.</p>
-      <ul>
-        <li>Vida: 25 € × 12 = 300 € por ano.</li>
-        <li>Habitação: 180 € por ano, equivalentes a 15 € por mês.</li>
-        <li>Total: <strong>480 € por ano, ou 40 € por mês em média</strong>.</li>
-        <li>Com uma prestação hipotética de 700 €, o orçamento seria de 740 € por mês em média, incluindo estes seguros.</li>
-      </ul>
-      <p>Valores escolhidos apenas para demonstrar o cálculo: não são preços médios, intervalos de mercado ou cotações. Não correspondem a uma idade, capital ou perfil de risco e não incluem um seguro de recheio separado. Substitua-os pelos valores das suas propostas; confirme o prémio e as condições com uma seguradora, mediador autorizado ou banco.</p>
-    </aside>
     <div className="calculator-layout">
       <div className="calculator-inputs">
         {labels.map((label, i) => <div className="form-pair" key={label}>
