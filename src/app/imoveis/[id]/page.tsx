@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Brand from "@/components/Brand";
 import Contact from "@/components/Contact";
 import DirectContacts from "@/components/DirectContacts";
+import ShareProperty from "@/components/ShareProperty";
 import { getProperties } from "@/lib/server";
 import { price, isResidential } from "@/lib/properties";
 export const dynamic = "force-dynamic";
@@ -57,6 +58,7 @@ export default async function PropertyPage({
         </p>
         <h1>{p.title}</h1>
         <p className="detail-price">{price(p)}</p>
+        <ShareProperty title={p.title} url={propertySeo(p).url} />
         <div className="gallery">
           {p.photos.map((photo, i) => (
             <a href={photo} target="_blank" rel="noreferrer" key={photo}>
