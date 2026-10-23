@@ -1,4 +1,4 @@
-const phone = "+351917361697";
+const phone = "+351926657638";
 const email = "procuracasa@procuracasa.pt";
 
 export default function DirectContacts({
@@ -11,26 +11,26 @@ export default function DirectContacts({
   return (
     <address
       className="direct-contacts"
-      aria-label="Contactos diretos da Procuracasa"
+      aria-label="Contactos de Carla Morais — Procuracasa"
     >
-      <p>Prefere falar diretamente?</p>
+      <p>Fale diretamente com Carla Morais.</p>
       <div className="direct-contact-actions">
         <a
           className="button"
-          href={`https://wa.me/351917361697?text=${encodeURIComponent(message)}`}
+          href={`https://wa.me/351926657638?text=${encodeURIComponent(message)}`}
           target="_blank"
           rel="noreferrer"
-          aria-label="Contactar por WhatsApp: 917 361 697"
+          aria-label="Contactar Carla Morais por WhatsApp: 926 657 638"
         >
           WhatsApp <span aria-hidden="true">↗</span>
         </a>
         <a
           className="direct-phone"
           href={`tel:${phone}`}
-          aria-label="Ligar para 917 361 697"
+          aria-label="Ligar para Carla Morais: 926 657 638"
         >
           <span>Ligar diretamente</span>
-          <strong>917 361 697</strong>
+          <strong>926 657 638</strong>
         </a>
       </div>
       <a

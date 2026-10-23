@@ -251,7 +251,7 @@ export default async function Home() {
         <Brand />
         <p>O seu lugar. Entre a cidade e o mar.</p>
         <div>
-          <a href="tel:+351917361697">917 361 697</a>
+          <a href="tel:+351926657638">Carla Morais · 926 657 638</a>
           <a href="mailto:procuracasa@procuracasa.pt">
             procuracasa@procuracasa.pt
           </a>
