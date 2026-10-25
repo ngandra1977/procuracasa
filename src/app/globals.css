@@ -1411,3 +1411,10 @@ select {
     font-size: 11px;
   }
 }
+
+.language-bar { padding: 8px 5%; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.language-bar nav { display: flex; gap: 8px; }
+.language-bar a { display: inline-flex; align-items: center; justify-content: center; min-width: 40px; min-height: 40px; font-size: 12px; letter-spacing: .06em; border-radius: 4px; }
+.language-bar a[aria-current="page"] { background: var(--terra); color: var(--paper); }
+.language-bar small { color: var(--muted); font-size: 11px; }
+@media print { .language-bar { display: none; } }

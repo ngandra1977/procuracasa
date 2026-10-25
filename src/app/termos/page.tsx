@@ -1,7 +1,7 @@
+import { localizePage, localizedMetadata } from "@/lib/i18n/server";
 import Brand from "@/components/Brand";
-export default function Terms() {
-  return (
-    <>
+export default async function Terms() {
+    return localizePage((<>
       <header className="header">
         <Brand />
         <a href="/">Voltar ao início</a>
@@ -52,6 +52,7 @@ export default function Terms() {
           intervenientes devem ser confirmados antes da publicação desta versão.
         </p>
       </main>
-    </>
-  );
+    </>));
 }
+
+export async function generateMetadata() { return localizedMetadata({ title: "Termos de utilização | Procuracasa" }, "https://www.procuracasa.pt/termos"); }

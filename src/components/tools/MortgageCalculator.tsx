@@ -1,47 +1,31 @@
 "use client";
+import { useLocalize } from "@/lib/i18n/client";
 import { useState } from "react";
 import { money, mortgage, monthlyIncome, effortLevel, ageAtLoanEnd } from "@/lib/calculators";
 export default function MortgageCalculator() {
-  const [principal, setPrincipal] = useState("200000"),
-    [rate, setRate] = useState("3.5"),
-    [rateType, setRateType] = useState("fixed"),
-    [euribor, setEuribor] = useState(""),
-    [spread, setSpread] = useState(""),
-    [period, setPeriod] = useState<"monthly" | "annual">("monthly"),
-    [payments, setPayments] = useState("12"),
-    [years, setYears] = useState("30"),
-    [age, setAge] = useState(""),
-    [finalAgeLimit, setFinalAgeLimit] = useState("75"),
-    [extras, setExtras] = useState("0"),
-    [income, setIncome] = useState(""),
-    [debts, setDebts] = useState("0");
-  const tan = rateType === "fixed" ? Number(rate) : Number(euribor) + Number(spread);
-  let normalizedIncome = 0;
-  let ageResult: ReturnType<typeof ageAtLoanEnd> | null = null;
-  let result: ReturnType<typeof mortgage> | null = null,
-    error = "";
-  try {
-    if (!principal || !years || Number(principal) <= 0 || (rateType === "fixed" ? rate === "" : euribor === "" || spread === ""))
-      throw new Error("Preencha um capital positivo, a TAN e o prazo.");
-    normalizedIncome = monthlyIncome(Number(income), period, Number(payments));
-    if (rateType !== "fixed" && (!Number.isFinite(Number(euribor)) || Number(euribor) < -10 || Number(spread) < 0)) throw new Error("Verifique a Euribor e o spread.");
-    if (age !== "") {
-      if (finalAgeLimit === "") throw new Error("Indique o limite de idade no final do contrato.");
-      ageResult = ageAtLoanEnd(Number(age), Number(years), Number(finalAgeLimit));
+    const localize = useLocalize();
+    const [principal, setPrincipal] = useState("200000"), [rate, setRate] = useState("3.5"), [rateType, setRateType] = useState("fixed"), [euribor, setEuribor] = useState(""), [spread, setSpread] = useState(""), [period, setPeriod] = useState<"monthly" | "annual">("monthly"), [payments, setPayments] = useState("12"), [years, setYears] = useState("30"), [age, setAge] = useState(""), [finalAgeLimit, setFinalAgeLimit] = useState("75"), [extras, setExtras] = useState("0"), [income, setIncome] = useState(""), [debts, setDebts] = useState("0");
+    const tan = rateType === "fixed" ? Number(rate) : Number(euribor) + Number(spread);
+    let normalizedIncome = 0;
+    let ageResult: ReturnType<typeof ageAtLoanEnd> | null = null;
+    let result: ReturnType<typeof mortgage> | null = null, error = "";
+    try {
+        if (!principal || !years || Number(principal) <= 0 || (rateType === "fixed" ? rate === "" : euribor === "" || spread === ""))
+            throw new Error("Preencha um capital positivo, a TAN e o prazo.");
+        normalizedIncome = monthlyIncome(Number(income), period, Number(payments));
+        if (rateType !== "fixed" && (!Number.isFinite(Number(euribor)) || Number(euribor) < -10 || Number(spread) < 0))
+            throw new Error("Verifique a Euribor e o spread.");
+        if (age !== "") {
+            if (finalAgeLimit === "")
+                throw new Error("Indique o limite de idade no final do contrato.");
+            ageResult = ageAtLoanEnd(Number(age), Number(years), Number(finalAgeLimit));
+        }
+        result = mortgage(Number(principal), tan, Number(years), Number(extras), normalizedIncome, Number(debts));
     }
-    result = mortgage(
-      Number(principal),
-      tan,
-      Number(years),
-      Number(extras),
-      normalizedIncome,
-      Number(debts),
-    );
-  } catch (e) {
-    error = e instanceof Error ? e.message : "Verifique os valores.";
-  }
-  return (
-    <>
+    catch (e) {
+        error = e instanceof Error ? e.message : "Verifique os valores.";
+    }
+    return localize((<>
       <div className="tool-scope">
         <strong>Uma hipótese de financiamento, sem compromisso.</strong>
         <p>
@@ -55,13 +39,7 @@ export default function MortgageCalculator() {
         <div className="calculator-inputs">
           <label>
             Montante do empréstimo (€)
-            <input
-              type="number"
-              min="1"
-              step="1000"
-              value={principal}
-              onChange={(e) => setPrincipal(e.target.value)}
-            />
+            <input type="number" min="1" step="1000" value={principal} onChange={(e) => setPrincipal(e.target.value)}/>
           </label>
           <label>Tipo de taxa
             <select value={rateType} onChange={(e) => setRateType(e.target.value)}>
@@ -73,23 +51,15 @@ export default function MortgageCalculator() {
           </label>
           {rateType !== "fixed" && <>
             <div className="form-pair">
-              <label>Euribor a {rateType} meses (%)<input type="number" min="-10" max="98" step="0.001" value={euribor} onChange={(e) => setEuribor(e.target.value)} /></label>
-              <label>Spread (%)<input type="number" min="0" max="50" step="0.01" value={spread} onChange={(e) => setSpread(e.target.value)} /></label>
+              <label>Euribor a {rateType} meses (%)<input type="number" min="-10" max="98" step="0.001" value={euribor} onChange={(e) => setEuribor(e.target.value)}/></label>
+              <label>Spread (%)<input type="number" min="0" max="50" step="0.01" value={spread} onChange={(e) => setSpread(e.target.value)}/></label>
             </div>
             <p className="local-note">Introduza a média mensal aplicável ao contrato, normalmente do mês anterior. Atualização manual: não são cotações em tempo real. Consulte a proposta e o <a href="https://clientebancario.bportugal.pt/pt-pt/taxas-de-juro-no-credito-habitacao" target="_blank" rel="noreferrer">Banco de Portugal</a>. TAN calculada: {Number.isFinite(tan) ? tan.toFixed(3).replace(".", ",") : "—"}%.</p>
           </>}
           <div className="form-pair">
             <label>
               {rateType === "fixed" ? "TAN fixa anual (%)" : "TAN calculada anual (%)"}
-              <input
-                type="number"
-                min="0"
-                max="98"
-                step="0.1"
-                value={rateType === "fixed" ? rate : String(tan)}
-                disabled={rateType !== "fixed"}
-                onChange={(e) => setRate(e.target.value)}
-              />
+              <input type="number" min="0" max="98" step="0.1" value={rateType === "fixed" ? rate : String(tan)} disabled={rateType !== "fixed"} onChange={(e) => setRate(e.target.value)}/>
               <small>
                 Use a TAN da proposta. Numa taxa variável, inclui indexante e
                 spread.
@@ -97,36 +67,23 @@ export default function MortgageCalculator() {
             </label>
             <label>
               Duração do empréstimo (anos)
-              <input
-                type="number"
-                min="1"
-                max="40"
-                step="1"
-                value={years}
-                onChange={(e) => setYears(e.target.value)}
-              />
+              <input type="number" min="1" max="40" step="1" value={years} onChange={(e) => setYears(e.target.value)}/>
               <small>De 1 a 40 anos de duração. O prazo disponível depende também da idade e das condições do banco.</small>
             </label>
           </div>
           <div className="form-pair">
             <label>Idade do titular mais velho do crédito (anos)
-              <input type="number" min="18" max="100" step="1" value={age} onChange={(e) => setAge(e.target.value)} placeholder="Opcional" />
+              <input type="number" min="18" max="100" step="1" value={age} onChange={(e) => setAge(e.target.value)} placeholder="Opcional"/>
               <small>Num casal, indique o titular mais velho como referência. O critério concreto depende da instituição.</small>
             </label>
             <label>Limite de idade no final do contrato (anos)
-              <input type="number" min="18" max="100" step="1" value={finalAgeLimit} onChange={(e) => setFinalAgeLimit(e.target.value)} />
+              <input type="number" min="18" max="100" step="1" value={finalAgeLimit} onChange={(e) => setFinalAgeLimit(e.target.value)}/>
               <small>75 anos é apenas uma referência editável. Se a sua proposta indicar 73 ou outro limite, altere este valor. Confirme com o banco e a seguradora.</small>
             </label>
           </div>
           <label>
             Seguros e outros encargos mensais (€)
-            <input
-              type="number"
-              min="0"
-              step="1"
-              value={extras}
-              onChange={(e) => setExtras(e.target.value)}
-            />
+            <input type="number" min="0" step="1" value={extras} onChange={(e) => setExtras(e.target.value)}/>
             <small>
               Acrescente os custos que conhece. Se ficar em zero, não entram na
               estimativa.
@@ -144,24 +101,11 @@ export default function MortgageCalculator() {
           <div className="form-pair">
             <label>
               Rendimento líquido {period === "annual" ? "anual" : "mensal"} (€) <small>Opcional, total do agregado após impostos e Segurança Social. No anual, inclua subsídios.</small>
-              <input
-                type="number"
-                min="0"
-                step="1"
-                value={income}
-                onChange={(e) => setIncome(e.target.value)}
-                placeholder="Para estimar o esforço"
-              />
+              <input type="number" min="0" step="1" value={income} onChange={(e) => setIncome(e.target.value)} placeholder="Para estimar o esforço"/>
             </label>
             <label>
               Outras prestações mensais (€)
-              <input
-                type="number"
-                min="0"
-                step="1"
-                value={debts}
-                onChange={(e) => setDebts(e.target.value)}
-              />
+              <input type="number" min="0" step="1" value={debts} onChange={(e) => setDebts(e.target.value)}/>
             </label>
           </div>
           <p className="local-note">
@@ -169,25 +113,19 @@ export default function MortgageCalculator() {
             simulador.
           </p>
         </div>
-        <section
-          className="calculator-result"
-          aria-label="Resultado da prestação"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          {result ? (
-            <>
+        <section className="calculator-result" aria-label="Resultado da prestação" aria-live="polite" aria-atomic="true">
+          {result ? (<>
               <p className="eyebrow">PRESTAÇÃO MENSAL · CAPITAL + JUROS</p>
               <p className="result-total">{money(result.payment)}</p>
               {ageResult && <div className="stress-result">
                 <p className="eyebrow">IDADE NO FINAL DO PRAZO</p>
                 <strong>{ageResult.finalAge} anos</strong>
                 <p>{ageResult.exceeds
-                  ? `Ultrapassa a referência escolhida de ${finalAgeLimit} anos.`
-                  : `Não ultrapassa a referência escolhida de ${finalAgeLimit} anos.`}</p>
+                    ? `Ultrapassa a referência escolhida de ${finalAgeLimit} anos.`
+                    : `Não ultrapassa a referência escolhida de ${finalAgeLimit} anos.`}</p>
                 {ageResult.exceeds && <p>{ageResult.yearsWithinAgeLimit > 0
-                  ? `Para respeitar apenas esse limite de idade, experimente um prazo até ${ageResult.yearsWithinAgeLimit} anos.`
-                  : "Não existe um prazo positivo dentro da referência de idade escolhida."}</p>}
+                        ? `Para respeitar apenas esse limite de idade, experimente um prazo até ${ageResult.yearsWithinAgeLimit} anos.`
+                        : "Não existe um prazo positivo dentro da referência de idade escolhida."}</p>}
                 <p>Comparação indicativa. Os limites de duração por idade, as regras para vários titulares, o seguro e a análise do banco podem reduzir o prazo. Não confirma elegibilidade nem aprovação. O prazo da simulação não foi alterado automaticamente.</p>
               </div>}
               <dl>
@@ -203,14 +141,12 @@ export default function MortgageCalculator() {
                   <dt>Total de capital + juros</dt>
                   <dd>{money(result.totalPayments)}</dd>
                 </div>
-                {result.effort !== null && (
-                  <div>
+                {result.effort !== null && (<div>
                     <dt>
                       Peso mensal no orçamento, incluindo seguros e outros créditos
                     </dt>
                     <dd>{result.effort.toFixed(1).replace(".", ",")}%</dd>
-                  </div>
-                )}
+                  </div>)}
               </dl>
               {result.effort !== null && <div className="stress-result">
                 <p className="eyebrow">ORIENTAÇÃO PARA O SEU ORÇAMENTO</p>
@@ -220,16 +156,10 @@ export default function MortgageCalculator() {
                 <p>{result.effort <= 35 ? "Dentro da referência de orientação de 35%." : "Acima da referência de orientação de 35%."} Estes níveis são orientativos, não são limites oficiais nem uma aprovação de crédito.</p>
                 <p>Prestações de créditos / rendimento, sem seguros: {((result.payment + Number(debts)) / normalizedIncome * 100).toFixed(1).replace(".", ",")}%. O DSTI bancário considera também ajustamentos aos juros e rendimentos. Confirme os limites aplicáveis e eventuais exceções com o banco.</p>
               </div>}
-              <div
-                className="loan-bar"
-                role="img"
-                aria-label={`Capital: ${money(Number(principal))}; juros: ${money(result.interest)}`}
-              >
-                <span
-                  style={{
-                    width: `${(Number(principal) / result.totalPayments) * 100}%`,
-                  }}
-                />
+              <div className="loan-bar" role="img" aria-label={`Capital: ${money(Number(principal))}; juros: ${money(result.interest)}`}>
+                <span style={{
+                width: `${(Number(principal) / result.totalPayments) * 100}%`,
+            }}/>
               </div>
               <p className="bar-key">
                 <span>Capital</span>
@@ -251,10 +181,7 @@ export default function MortgageCalculator() {
                 regulamentar do banco. O total apresentado não é o MTIC e não
                 permite calcular a TAEG.
               </p>
-            </>
-          ) : (
-            <p role="alert">{error}</p>
-          )}
+            </>) : (<p role="alert">{error}</p>)}
         </section>
       </div>
       <section className="tool-explanation">
@@ -276,6 +203,5 @@ export default function MortgageCalculator() {
           Estimar a entrada e os custos iniciais ↗
         </a>
       </section>
-    </>
-  );
+    </>));
 }

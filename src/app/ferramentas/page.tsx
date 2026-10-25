@@ -1,15 +1,14 @@
+import { localizePage, localizedMetadata } from "@/lib/i18n/server";
 import type { Metadata } from "next";
 import Brand from "@/components/Brand";
 import { toolPages } from "@/lib/tools";
-export const metadata: Metadata = {
-  title: "Calculadoras e guias para comprar casa | Procuracasa",
-  description:
-    "Simule os custos da compra e a prestação do crédito. Prepare os documentos e as visitas com checklists gratuitas, sem registo.",
-  alternates: { canonical: "https://www.procuracasa.pt/ferramentas" },
+const baseMetadata: Metadata = {
+    title: "Calculadoras e guias para comprar casa | Procuracasa",
+    description: "Simule os custos da compra e a prestação do crédito. Prepare os documentos e as visitas com checklists gratuitas, sem registo.",
+    alternates: { canonical: "https://www.procuracasa.pt/ferramentas" },
 };
-export default function Tools() {
-  return (
-    <>
+export default async function Tools() {
+    return localizePage((<>
       <header className="header tool-header">
         <Brand />
         <nav aria-label="Navegação">
@@ -33,19 +32,13 @@ export default function Tools() {
           </p>
         </section>
         <div className="tools-grid">
-          {toolPages.map((t) => (
-            <a
-              key={t.slug}
-              className="tool-card"
-              href={`/ferramentas/${t.slug}`}
-            >
+          {toolPages.map((t) => (<a key={t.slug} className="tool-card" href={`/ferramentas/${t.slug}`}>
               <span className="tool-number">{t.number}</span>
               <p className="eyebrow">{t.kind}</p>
               <h2>{t.title}</h2>
               <p>{t.description}</p>
               <span className="underlink">{t.action} ↗</span>
-            </a>
-          ))}
+            </a>))}
         </div>
         <section className="tool-cta">
           <div>
@@ -73,6 +66,7 @@ export default function Tools() {
           <a href="/termos">Termos</a>
         </div>
       </footer>
-    </>
-  );
+    </>));
 }
+
+export async function generateMetadata() { return localizedMetadata(baseMetadata); }

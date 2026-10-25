@@ -1,7 +1,7 @@
+import { localizePage, localizedMetadata } from "@/lib/i18n/server";
 import Brand from "@/components/Brand";
-export default function Privacy() {
-  return (
-    <>
+export default async function Privacy() {
+    return localizePage((<>
       <header className="header">
         <Brand />
         <a href="/">Voltar ao início</a>
@@ -71,6 +71,7 @@ export default function Privacy() {
           confirmados pela equipa antes da publicação desta versão.
         </p>
       </main>
-    </>
-  );
+    </>));
 }
+
+export async function generateMetadata() { return localizedMetadata({ title: "Política de privacidade | Procuracasa" }, "https://www.procuracasa.pt/privacidade"); }

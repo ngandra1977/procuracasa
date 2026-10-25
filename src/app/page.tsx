@@ -1,3 +1,4 @@
+import { localizePage, localizedMetadata } from "@/lib/i18n/server";
 import type { Metadata } from "next";
 import Brand from "@/components/Brand";
 import Catalogue from "@/components/Catalogue";
@@ -6,22 +7,22 @@ import DirectContacts from "@/components/DirectContacts";
 import { toolPages } from "@/lib/tools";
 import { getProperties } from "@/lib/server";
 import { locations, Property } from "@/lib/properties";
-export const metadata: Metadata = {
-  title: "Casas e apartamentos no Grande Porto | Procuracasa",
-  description: "Conheça os imóveis da Procuracasa no Grande Porto, com especial atenção a Vila do Conde, Matosinhos e Leça da Palmeira. Consulte também outras zonas e ferramentas para comprar casa.",
-  alternates: { canonical: "https://www.procuracasa.pt/" },
+const baseMetadata: Metadata = {
+    title: "Casas e apartamentos no Grande Porto | Procuracasa",
+    description: "Conheça os imóveis da Procuracasa no Grande Porto, com especial atenção a Vila do Conde, Matosinhos e Leça da Palmeira. Consulte também outras zonas e ferramentas para comprar casa.",
+    alternates: { canonical: "https://www.procuracasa.pt/" },
 };
 export const dynamic = "force-dynamic";
 export default async function Home() {
-  let properties: Property[] = [];
-  let unavailable = false;
-  try {
-    properties = await getProperties();
-  } catch {
-    unavailable = true;
-  }
-  return (
-    <>
+    let properties: Property[] = [];
+    let unavailable = false;
+    try {
+        properties = await getProperties();
+    }
+    catch {
+        unavailable = true;
+    }
+    return localizePage((<>
       <header className="header home-header">
         <Brand />
         <nav aria-label="Navegação principal">
@@ -59,17 +60,14 @@ export default async function Home() {
               </a>
             </div>
             <div className="signature">
-              <span className="signature-line" />
+              <span className="signature-line"/>
               <span>
                 Procuracasa<small>PROXIMIDADE EM CADA PASSO.</small>
               </span>
             </div>
           </div>
           <div className="hero-image">
-            <img
-              src="/images/interior-ambiente.jpg"
-              alt="Interior luminoso com materiais naturais — imagem de ambiente, não corresponde a um imóvel anunciado"
-            />
+            <img src="/images/interior-ambiente.jpg" alt="Interior luminoso com materiais naturais — imagem de ambiente, não corresponde a um imóvel anunciado"/>
             <div className="image-caption">
               <span>ESPAÇO PARA UM NOVO CAPÍTULO.</span>
               <small>Imagem de ambiente</small>
@@ -102,25 +100,17 @@ export default async function Home() {
               Explore as opções e fale connosco sobre o que procura.
             </p>
           </div>
-          {unavailable ? (
-            <div className="empty">
+          {unavailable ? (<div className="empty">
               <h3>O catálogo está temporariamente indisponível.</h3>
               <p>Pode continuar a enviar-nos o seu pedido.</p>
               <a href="#contacto" className="button">
                 Falar connosco ↗
               </a>
-            </div>
-          ) : (
-            <Catalogue properties={properties} />
-          )}
+            </div>) : (<Catalogue properties={properties}/>)}
         </section>
         <section className="territory section" id="territorio">
           <div className="territory-image">
-            <img
-              loading="lazy"
-              src="/images/porto-ambiente.jpg"
-              alt="Arquitetura e paisagem urbana do Porto"
-            />
+            <img loading="lazy" src="/images/porto-ambiente.jpg" alt="Arquitetura e paisagem urbana do Porto"/>
             <span>PORTO, COM OUTRO OLHAR.</span>
           </div>
           <div>
@@ -137,13 +127,11 @@ export default async function Home() {
               localidades.
             </p>
             <div className="zone-list">
-              {locations.map((l, i) => (
-                <a key={l} href="#contacto">
+              {locations.map((l, i) => (<a key={l} href="#contacto">
                   <small>0{i + 1}</small>
                   {l}
                   <span>↗</span>
-                </a>
-              ))}
+                </a>))}
             </div>
             <a className="underlink other-zone" href="#contacto">
               Procura noutra zona? Conte-nos onde ↗
@@ -199,18 +187,12 @@ export default async function Home() {
             </p>
           </div>
           <div className="tools-grid">
-            {toolPages.map((t) => (
-              <a
-                key={t.slug}
-                className="tool-card"
-                href={`/ferramentas/${t.slug}`}
-              >
+            {toolPages.map((t) => (<a key={t.slug} className="tool-card" href={`/ferramentas/${t.slug}`}>
                 <p className="eyebrow">{t.kind}</p>
                 <h3>{t.title}</h3>
                 <p>{t.description}</p>
                 <span className="underlink">{t.action} ↗</span>
-              </a>
-            ))}
+              </a>))}
           </div>
         </section>
         <section className="contact-section section" id="contacto">
@@ -228,18 +210,10 @@ export default async function Home() {
             </p>
             <DirectContacts />
             <div className="contact-socials">
-              <a
-                href="https://www.instagram.com/procuracasa.pt/"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href="https://www.instagram.com/procuracasa.pt/" target="_blank" rel="noreferrer">
                 Instagram ↗
               </a>
-              <a
-                href="https://www.facebook.com/profile.php?id=61594045382307"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href="https://www.facebook.com/profile.php?id=61594045382307" target="_blank" rel="noreferrer">
                 Facebook ↗
               </a>
             </div>
@@ -262,6 +236,7 @@ export default async function Home() {
         </div>
         <small>© {new Date().getFullYear()} Procuracasa.</small>
       </footer>
-    </>
-  );
+    </>));
 }
+
+export async function generateMetadata() { return localizedMetadata(baseMetadata); }

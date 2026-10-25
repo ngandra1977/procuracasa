@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { ReactNode } from "react";
 import "./globals.css";
-export const metadata: Metadata = {
+import { headers } from "next/headers";
+import { getLocale, dictionaries, localizedMetadata } from "@/lib/i18n/server";
+import { languageTags } from "@/lib/i18n/shared";
+import { LocaleProvider } from "@/lib/i18n/client";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+const baseMetadata: Metadata = {
   metadataBase: new URL("https://www.procuracasa.pt"),
   title: "Procuracasa | Imóveis no Grande Porto",
   description:
@@ -21,10 +26,17 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
-export default function RootLayout({ children }: { children: ReactNode }) {
+export async function generateMetadata() { return localizedMetadata(baseMetadata); }
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const locale = await getLocale();
+  const path = (await headers()).get("x-site-public-path") || "/";
+  const dictionary = dictionaries[locale];
   return (
-    <html lang="pt-PT">
-      <body>{children}</body>
+    <html lang={languageTags[locale]}>
+      <body><LocaleProvider locale={locale} dictionary={dictionary}>
+        {!path.startsWith("/gestao") && <LanguageSwitcher locale={locale} path={path} dictionary={dictionary} />}
+        {children}
+      </LocaleProvider></body>
     </html>
   );
 }

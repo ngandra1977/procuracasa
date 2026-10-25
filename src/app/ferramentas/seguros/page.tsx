@@ -1,21 +1,19 @@
+import { localizePage, localizedMetadata } from "@/lib/i18n/server";
 import type { Metadata } from "next";
 import ToolShell from "@/components/tools/ToolShell";
 import InsuranceCalculator from "@/components/tools/InsuranceCalculator";
-export const metadata: Metadata = {
-  title: "Seguros na compra de casa: obrigações e custos | Procuracasa",
-  description: "Saiba distinguir seguro de incêndio, multirriscos e vida no crédito à habitação. Calcule o custo mensal e anual com os valores das suas propostas.",
-  alternates: { canonical: "https://www.procuracasa.pt/ferramentas/seguros" },
-  openGraph: { title: "Seguros na compra de casa | Procuracasa", description: "Obrigações, coberturas e orçamento mensal e anual de seguros.", url: "https://www.procuracasa.pt/ferramentas/seguros", locale: "pt_PT", type: "website" },
+const baseMetadata: Metadata = {
+    title: "Seguros na compra de casa: obrigações e custos | Procuracasa",
+    description: "Saiba distinguir seguro de incêndio, multirriscos e vida no crédito à habitação. Calcule o custo mensal e anual com os valores das suas propostas.",
+    alternates: { canonical: "https://www.procuracasa.pt/ferramentas/seguros" },
+    openGraph: { title: "Seguros na compra de casa | Procuracasa", description: "Obrigações, coberturas e orçamento mensal e anual de seguros.", url: "https://www.procuracasa.pt/ferramentas/seguros", locale: "pt_PT", type: "website" },
 };
-export default function Page() {
-  return <ToolShell eyebrow="GUIA E ORÇAMENTO · SEGUROS" title="Seguros da casa, com mais clareza."
-    intro="Perceba o que é obrigatório por lei, o que pode ser exigido pelo banco e como organizar os custos das suas propostas."
-    reviewedDate="19 de outubro de 2026"
-    sources={[
-      { title: "ASF — seguro de habitação", href: "https://www.consumidor.asf.com.pt/pt/seguros/seguro-de-habita%C3%A7%C3%A3o" },
-      { title: "Banco de Portugal — garantias e seguro de vida", href: "https://clientebancario.bportugal.pt/pt-pt/garantias" },
-      { title: "Banco de Portugal — escolha do seguro de vida", href: "https://clientebancario.bportugal.pt/pt-pt/noticias/entrada-em-vigor-do-decreto-lei-no-2222009-de-11-de-setembro" },
-    ]}>
+export default async function Page() {
+    return localizePage(<ToolShell eyebrow="GUIA E ORÇAMENTO · SEGUROS" title="Seguros da casa, com mais clareza." intro="Perceba o que é obrigatório por lei, o que pode ser exigido pelo banco e como organizar os custos das suas propostas." reviewedDate="19 de outubro de 2026" sources={[
+            { title: "ASF — seguro de habitação", href: "https://www.consumidor.asf.com.pt/pt/seguros/seguro-de-habita%C3%A7%C3%A3o" },
+            { title: "Banco de Portugal — garantias e seguro de vida", href: "https://clientebancario.bportugal.pt/pt-pt/garantias" },
+            { title: "Banco de Portugal — escolha do seguro de vida", href: "https://clientebancario.bportugal.pt/pt-pt/noticias/entrada-em-vigor-do-decreto-lei-no-2222009-de-11-de-setembro" },
+        ]}>
     <div className="tool-scope"><strong>Informação geral, sem cotação ou contratação de seguros.</strong><p>Este guia não compara seguradoras nem recomenda uma apólice. As condições e os preços dependem da proposta, das coberturas e da avaliação do risco. Não existe aqui um preço universal para o seu caso.</p></div>
     <section className="tool-explanation">
       <h2>Que seguros são necessários?</h2>
@@ -45,5 +43,7 @@ export default function Page() {
       <details><summary>O valor apresentado é uma proposta de seguro?</summary><p>Não. A ferramenta apenas soma e converte os valores introduzidos. Para obter um preço, peça uma proposta a uma seguradora ou distribuidor autorizado e confirme as condições.</p></details>
       <a className="underlink" href="/ferramentas/custos-compra">Organizar também os custos iniciais da compra ↗</a>
     </section>
-  </ToolShell>;
+  </ToolShell>);
 }
+
+export async function generateMetadata() { return localizedMetadata(baseMetadata); }

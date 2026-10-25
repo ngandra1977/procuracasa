@@ -1,25 +1,21 @@
+import { localizePage, localizedMetadata } from "@/lib/i18n/server";
 import Brand from "@/components/Brand";
 import DirectContacts from "@/components/DirectContacts";
 import { REVIEWED_DATE } from "@/lib/calculators";
 import { toolPages } from "@/lib/tools";
 import type { ReactNode } from "react";
-export default function ToolShell({
-  eyebrow,
-  title,
-  intro,
-  children,
-  sources = [],
-  reviewedDate = REVIEWED_DATE,
-}: {
-  eyebrow: string;
-  title: string;
-  intro: string;
-  children: ReactNode;
-  sources?: { title: string; href: string }[];
-  reviewedDate?: string;
+export default async function ToolShell({ eyebrow, title, intro, children, sources = [], reviewedDate = REVIEWED_DATE, }: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    children: ReactNode;
+    sources?: {
+        title: string;
+        href: string;
+    }[];
+    reviewedDate?: string;
 }) {
-  return (
-    <>
+    return localizePage((<>
       <header className="header tool-header">
         <Brand />
         <nav aria-label="Navegação">
@@ -44,24 +40,20 @@ export default function ToolShell({
           <h2>Continue a preparar a compra ou a venda.</h2>
           <ul>{toolPages.map((tool) => <li key={tool.slug}><a href={`/ferramentas/${tool.slug}`}>{tool.title}</a></li>)}</ul>
         </section>
-        {sources.length > 0 && (
-          <aside className="tool-sources">
+        {sources.length > 0 && (<aside className="tool-sources">
             <p className="eyebrow">FONTES E ATUALIZAÇÃO</p>
             <p>
               Informação verificada em {reviewedDate}. Confirme alterações
               posteriores nas fontes oficiais.
             </p>
             <ul>
-              {sources.map((s) => (
-                <li key={s.href}>
+              {sources.map((s) => (<li key={s.href}>
                   <a href={s.href} target="_blank" rel="noreferrer">
                     {s.title} ↗
                   </a>
-                </li>
-              ))}
+                </li>))}
             </ul>
-          </aside>
-        )}
+          </aside>)}
         <section className="tool-cta">
           <div>
             <p className="eyebrow">DA SIMULAÇÃO À SUA PRÓXIMA CASA</p>
@@ -85,6 +77,5 @@ export default function ToolShell({
           <a href="/">Voltar ao início</a>
         </div>
       </footer>
-    </>
-  );
+    </>));
 }

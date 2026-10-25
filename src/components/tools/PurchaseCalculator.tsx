@@ -1,42 +1,30 @@
 "use client";
+import { useLocalize } from "@/lib/i18n/client";
 import { useState } from "react";
-import {
-  money,
-  purchaseCosts,
-  PurchasePurpose,
-  TAX_YEAR,
-} from "@/lib/calculators";
+import { money, purchaseCosts, PurchasePurpose, TAX_YEAR, } from "@/lib/calculators";
 export default function PurchaseCalculator() {
-  const [price, setPrice] = useState("250000"),
-    [vpt, setVpt] = useState("0"),
-    [financed, setFinanced] = useState(true),
-    [entry, setEntry] = useState("25000"),
-    [years, setYears] = useState("30"),
-    [purpose, setPurpose] = useState<PurchasePurpose>("permanent"),
-    [registration, setRegistration] = useState(""),
-    [other, setOther] = useState("0");
-  const loan = financed ? Number(price) - Number(entry) : 0;
-  const registrationValue =
-    registration === "" ? (Number(loan) > 0 ? 700 : 375) : Number(registration);
-  let result: ReturnType<typeof purchaseCosts> | null = null,
-    error = "";
-  try {
-    if (!price || (financed && (!years || entry === "")))
-      throw new Error("Preencha o preço, a entrada e o prazo.");
-    result = purchaseCosts({
-      price: Number(price),
-      vpt: Number(vpt),
-      loan: Number(loan),
-      years: financed ? Number(years) : 30,
-      purpose,
-      registration: registrationValue,
-      otherCosts: Number(other),
-    });
-  } catch (e) {
-    error = e instanceof Error ? e.message : "Verifique os valores.";
-  }
-  return (
-    <>
+    const localize = useLocalize();
+    const [price, setPrice] = useState("250000"), [vpt, setVpt] = useState("0"), [financed, setFinanced] = useState(true), [entry, setEntry] = useState("25000"), [years, setYears] = useState("30"), [purpose, setPurpose] = useState<PurchasePurpose>("permanent"), [registration, setRegistration] = useState(""), [other, setOther] = useState("0");
+    const loan = financed ? Number(price) - Number(entry) : 0;
+    const registrationValue = registration === "" ? (Number(loan) > 0 ? 700 : 375) : Number(registration);
+    let result: ReturnType<typeof purchaseCosts> | null = null, error = "";
+    try {
+        if (!price || (financed && (!years || entry === "")))
+            throw new Error("Preencha o preço, a entrada e o prazo.");
+        result = purchaseCosts({
+            price: Number(price),
+            vpt: Number(vpt),
+            loan: Number(loan),
+            years: financed ? Number(years) : 30,
+            purpose,
+            registration: registrationValue,
+            otherCosts: Number(other),
+        });
+    }
+    catch (e) {
+        error = e instanceof Error ? e.message : "Verifique os valores.";
+    }
+    return localize((<>
       <div className="tool-scope">
         <strong>Portugal continental · taxas de {TAX_YEAR}</strong>
         <p>
@@ -49,14 +37,11 @@ export default function PurchaseCalculator() {
       <div className="calculator-layout">
         <div className="calculator-inputs">
           <label>Preço de compra (€)
-            <input type="number" min="1" step="1000" value={price} onChange={(e) => setPrice(e.target.value)} />
+            <input type="number" min="1" step="1000" value={price} onChange={(e) => setPrice(e.target.value)}/>
           </label>
           <label>
             Finalidade / natureza do imóvel
-            <select
-              value={purpose}
-              onChange={(e) => setPurpose(e.target.value as PurchasePurpose)}
-            >
+            <select value={purpose} onChange={(e) => setPurpose(e.target.value as PurchasePurpose)}>
               <option value="permanent">Habitação própria e permanente</option>
               <option value="secondary">
                 Segunda habitação / habitação para arrendar
@@ -74,29 +59,22 @@ export default function PurchaseCalculator() {
           </label>
           {financed && <div className="form-pair">
             <label>Entrada para a casa (€)
-              <input type="number" min="0" max={price} step="1000" value={entry} onChange={(e) => setEntry(e.target.value)} />
+              <input type="number" min="0" max={price} step="1000" value={entry} onChange={(e) => setEntry(e.target.value)}/>
               <small>Parte do preço paga com dinheiro seu, sem impostos ou despesas. Crédito calculado: {money(Math.max(0, loan))}. Não representa aprovação bancária.</small>
             </label>
             <label>Prazo do crédito (anos)
-              <input type="number" min="1" max="40" step="1" value={years} onChange={(e) => setYears(e.target.value)} />
+              <input type="number" min="1" max="40" step="1" value={years} onChange={(e) => setYears(e.target.value)}/>
             </label>
           </div>}
           <details><summary>Mais opções: VPT e despesas adicionais</summary>
           <label>Valor Patrimonial Tributário — VPT (€)
-            <input type="number" min="0" step="1000" value={vpt} onChange={(e) => setVpt(e.target.value)} />
+            <input type="number" min="0" step="1000" value={vpt} onChange={(e) => setVpt(e.target.value)}/>
             <small>Da caderneta predial. Os impostos usam o maior entre preço e VPT. Deixe zero se não for superior ao preço.</small>
           </label>
           <div className="form-pair">
             <label>
               Formalização e registos (€)
-              <input
-                type="number"
-                min="0"
-                step="1"
-                placeholder={String(Number(loan) > 0 ? 700 : 375)}
-                value={registration}
-                onChange={(e) => setRegistration(e.target.value)}
-              />
+              <input type="number" min="0" step="1" placeholder={String(Number(loan) > 0 ? 700 : 375)} value={registration} onChange={(e) => setRegistration(e.target.value)}/>
               <small>
                 Referência Casa Pronta para um prédio: 375 € com um ato, 700 €
                 com vários atos. Pode alterar.
@@ -104,13 +82,7 @@ export default function PurchaseCalculator() {
             </label>
             <label>
               Outros custos iniciais (€)
-              <input
-                type="number"
-                min="0"
-                step="1"
-                value={other}
-                onChange={(e) => setOther(e.target.value)}
-              />
+              <input type="number" min="0" step="1" value={other} onChange={(e) => setOther(e.target.value)}/>
               <small>
                 Inclua avaliação, comissões, honorários ou seguros iniciais que
                 já conheça.
@@ -119,14 +91,8 @@ export default function PurchaseCalculator() {
           </div>
           </details>
         </div>
-        <section
-          className="calculator-result"
-          aria-label="Resultado da estimativa"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          {result ? (
-            <>
+        <section className="calculator-result" aria-label="Resultado da estimativa" aria-live="polite" aria-atomic="true">
+          {result ? (<>
               <p className="eyebrow">DINHEIRO NECESSÁRIO PARA COMPRAR</p>
               <p className="result-total">{money(result.cashNeeded)}</p>
               <p>Entrada + impostos + despesas indicadas.</p>
@@ -172,10 +138,7 @@ export default function PurchaseCalculator() {
                 uma hipótese sua, não uma aprovação bancária. O sinal pago no
                 CPCV integra o preço: não é somado outra vez.
               </p>
-            </>
-          ) : (
-            <p role="alert">{error}</p>
-          )}
+            </>) : (<p role="alert">{error}</p>)}
         </section>
       </div>
       <section className="tool-explanation">
@@ -200,11 +163,7 @@ export default function PurchaseCalculator() {
             Não. O regime depende da situação de cada comprador e das condições
             da aquisição. Esta ferramenta apresenta o regime geral, que pode
             sobrestimar os impostos se tiver direito a um benefício. Consulte a{" "}
-            <a
-              href="https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/IMT_Jovem/Pages/default.aspx/"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href="https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/IMT_Jovem/Pages/default.aspx/" target="_blank" rel="noreferrer">
               informação oficial sobre IMT Jovem
             </a>{" "}
             antes de tomar uma decisão.
@@ -219,6 +178,5 @@ export default function PurchaseCalculator() {
           Agora, simule a prestação mensal ↗
         </a>
       </section>
-    </>
-  );
+    </>));
 }
