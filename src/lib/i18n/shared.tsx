@@ -24,7 +24,7 @@ export function translator(locale: Locale, dictionary: Dictionary) {
     return { regex: new RegExp(`^${escaped}$`), variables, value: dictionary[key] };
   });
   function t(value: string): string {
-    if (locale === "pt" || !value.trim()) return value;
+    if (locale === "pt" || !value.trim() || /^(?:\.{1,2}\/|\/|#|@\/)/.test(value.trim())) return value;
     const key = normalize(value);
     let result = dictionary[key];
     if (!result) {

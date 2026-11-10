@@ -33,3 +33,10 @@ validated by a professional translator.
 
 The sitemap and canonical/hreflang metadata enumerate all five languages.
 Fixtures used for local tests must not be published as actual listings.
+
+Never include relative module imports, URL paths or fragment identifiers in the
+translation source or dictionaries. Dictionaries are serialized into public page
+data: crawlers can mistake entries such as relative imports for page links.
+The extractor and generator exclude these strings, and regression tests check
+the versioned dictionaries. Proxy redirects recover the specific module-name
+aliases already discovered by Google; unrelated missing URLs must remain 404.

@@ -1,6 +1,8 @@
 """Generate versioned translations of public website copy; never runs in requests."""
 import json,re,urllib.request,urllib.parse,time,concurrent.futures,pathlib
-src=json.loads(pathlib.Path('scripts/translation-sources.json').read_text())
+def public_copy(value):
+ return not re.match(r'^(?:\.{1,2}/|/|#|@/)',value.strip()) and not re.fullmatch(r'\S*/\S*',value.strip())
+src={k:v for k,v in json.loads(pathlib.Path('scripts/translation-sources.json').read_text()).items() if public_copy(k) and public_copy(v)}
 items=list(src.items()); batches=[];batch=[];length=0
 for key,val in items:
  if batch and length+len(val)>3200:batches.append(batch);batch=[];length=0
@@ -9,7 +11,7 @@ if batch:batches.append(batch)
 root=pathlib.Path('src/lib/i18n');root.mkdir(exist_ok=True)
 def translate(lang):
  out={};target=root/(lang+'.json')
- if target.exists():out=json.loads(target.read_text())
+ if target.exists():out={k:v for k,v in json.loads(target.read_text()).items() if k in src and public_copy(k) and public_copy(v)}
  for i,b in enumerate(batches):
   if all(k in out for k,v in b):continue
   q='\n'.join('⟦%04d⟧\n%s'%(j,v) for j,(k,v) in enumerate(b))

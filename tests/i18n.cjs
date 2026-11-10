@@ -11,6 +11,13 @@ assert.equal(localizedUrl('https://www.procuracasa.pt/en/imoveis/abc','fr'),'htt
 for(const lang of ['en','fr','de','es']){
  const dictionary=JSON.parse(fs.readFileSync('src/lib/i18n/'+lang+'.json'));
  const t=translator(lang,dictionary);
+ for(const [source,translated] of Object.entries(dictionary)){
+  assert.ok(!/^(?:\.{1,2}\/|\/|#|@\/)/.test(source.trim()),'Technical path leaked into public dictionary: '+source);
+  assert.ok(!/^\S*\/\S*$/.test(source.trim()),'Module specifier or route leaked into public dictionary: '+source);
+  assert.ok(!/^(?:\.{1,2}\/|\/|#|@\/)/.test(translated.trim()),'Translated technical path leaked into public dictionary: '+translated);
+ }
+ const unsafe=translator(lang,{'./properties':'./Eigenschaften','#contacto':'#contact','/imoveis':'/properties'});
+ assert.equal(unsafe('./properties'),'./properties');assert.equal(unsafe('#contacto'),'#contacto');assert.equal(unsafe('/imoveis'),'/imoveis');
  assert.notEqual(t('Zona de interesse'),'Zona de interesse');
  assert.notEqual(t('Tradução automática. A versão portuguesa prevalece.'),'Tradução automática. A versão portuguesa prevalece.');
  assert.equal(t('Carla Morais'),'Carla Morais');
@@ -36,4 +43,29 @@ let r=proxy(req('/fr/ferramentas/custos-compra'));assert.equal(r.kind,'next');as
 r=proxy(req('/'));assert.equal(r.opts.request.headers.get('x-site-locale'),'pt','Ignore spoofed locale');
 assert.equal(proxy(req('/en/gestao')).status,404);assert.equal(proxy(req('/es/api/contact')).status,404);
 r=proxy(req('/pt/ferramentas'));assert.equal(r.status,308);assert.equal(r.url.pathname,'/ferramentas');
+// Real Search Console examples: recover the intended page without a chain,
+// preserve its language and query, and leave all unrelated routes alone.
+const reported404s=[
+ '/de/Checkliste','/de/Eigenschaften','/en/properties','/Checklist','/properties',
+ '/de/properties','/en/ferramentas/properties','/de/ferramentas/Checkliste',
+ '/fr/imoveis/Checklist','/de/imoveis/properties','/en/Checklist','/fr/propriétés',
+ '/propriétés','/de/Checklist','/fr/Checklist','/fr/properties','/de/imoveis/Checklist',
+ '/fr/imoveis/properties','/en/ferramentas/Checklist','/fr/imoveis/propriétés',
+ '/en/imoveis/Checklist','/de/ferramentas/Checklist','/es/ferramentas/properties',
+ '/de/ferramentas/Eigenschaften','/de/ferramentas/properties'
+];
+for(const path of reported404s){
+ const language=path.match(/^\/(en|fr|de|es)\//)?.[1]||'pt';
+ const catalogue=/properties|propriétés|Eigenschaften/.test(path);
+ const expected=localizedPath(catalogue?'/':'/ferramentas/checklist-visita',language);
+ const result=proxy(req(encodeURI(path)+'?source=facebook'));
+ assert.equal(result.status,308,path);
+ assert.equal(result.url.pathname,expected,path);
+ assert.equal(result.url.hash,catalogue?'#imoveis':'',path);
+ assert.equal(result.url.search,'?source=facebook',path);
+ assert.equal(proxy(req(result.url.pathname+result.url.search)).kind,'next','Redirect must resolve in one hop');
+}
+for(const path of ['/gestao/properties','/it/properties','/unknown','/imoveis/not-a-real-id','/de/ferramentas/custos-compra','/de/imoveis/388331b1-888b-48fe-a172-2d2f7d3243f5']) assert.equal(proxy(req(path)).kind,'next',path);
+assert.equal(proxy(req('/pt/imoveis/properties')).url.pathname,'/');
 console.log('OK: four languages, links, enum values, controls, property copy, JSON-LD and locale routing.');
+console.log('OK: no serialized module paths and all 25 reported crawl aliases recover in one hop.');
